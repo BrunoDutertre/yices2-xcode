@@ -441,7 +441,7 @@ static match_code_t match_term(context_t *ctx, term_t t, term_t *a, term_t *x) {
     switch (term_kind(terms, t)) {
     case OR_TERM:
       if (is_pos_term(t)) {
-	code = MATCH_OR;
+        code = MATCH_OR;
       }
       break;
 
@@ -450,48 +450,48 @@ static match_code_t match_term(context_t *ctx, term_t t, term_t *a, term_t *x) {
       t1 = intern_tbl_get_root(&ctx->intern, eq->arg[0]);
       t2 = intern_tbl_get_root(&ctx->intern, eq->arg[1]);
       if (is_boolean_term(terms, t1)) {
-	assert(is_boolean_term(terms, t2));
-	/*
-	 * t is either (iff t1 t2) or (not (iff t1 t2))
-	 * we rewrite (not (iff t1 t2)) to (iff t1 (not t2))
-	 */
-	if (is_neg_term(t)) {
-	  t2 = opposite_term(t2);
-	}
-	/*
-	 * Check whether t1 or t2 is true or false
-	 */
-	if (term_is_true(ctx, t1)) {
-	  code = MATCH_IFF;
-	  *x = t2;
-	} else if (term_is_false(ctx, t1)) {
-	  code = MATCH_IFF;
-	  *x = opposite_term(t2);
-	} else if (term_is_true(ctx, t2)) {
-	  code = MATCH_IFF;
-	  *x = t1;
-	} else if (term_is_false(ctx, t2)) {
-	  code = MATCH_IFF;
-	  *x = opposite_term(t1);
-	}
+        assert(is_boolean_term(terms, t2));
+        /*
+         * t is either (iff t1 t2) or (not (iff t1 t2))
+         * we rewrite (not (iff t1 t2)) to (iff t1 (not t2))
+         */
+        if (is_neg_term(t)) {
+          t2 = opposite_term(t2);
+        }
+        /*
+         * Check whether t1 or t2 is true or false
+         */
+        if (term_is_true(ctx, t1)) {
+          code = MATCH_IFF;
+          *x = t2;
+        } else if (term_is_false(ctx, t1)) {
+          code = MATCH_IFF;
+          *x = opposite_term(t2);
+        } else if (term_is_true(ctx, t2)) {
+          code = MATCH_IFF;
+          *x = t1;
+        } else if (term_is_false(ctx, t2)) {
+          code = MATCH_IFF;
+          *x = opposite_term(t1);
+        }
 
       } else if (t1 != t2) {
-	/*
-	 * t1 and t2 are not Boolean
-	 * if t1 and t2 are equal, we return MATCH_OTHER, since (eq t1 t2) is true
-	 */
-	assert(is_pos_term(t1) && is_pos_term(t2));
-	if (false_eq(terms, t1, t2)) {
-	  code = MATCH_FALSE;
-	} else if (term_is_constant(terms, t1)) {
-	  *a = t1;
-	  *x = t2;
-	  code = MATCH_EQ;
-	} else if (term_is_constant(terms, t2)) {
-	  *a = t2;
-	  *x = t1;
-	  code = MATCH_EQ;
-	}
+        /*
+         * t1 and t2 are not Boolean
+         * if t1 and t2 are equal, we return MATCH_OTHER, since (eq t1 t2) is true
+         */
+        assert(is_pos_term(t1) && is_pos_term(t2));
+        if (false_eq(terms, t1, t2)) {
+          code = MATCH_FALSE;
+        } else if (term_is_constant(terms, t1)) {
+          *a = t1;
+          *x = t2;
+          code = MATCH_EQ;
+        } else if (term_is_constant(terms, t2)) {
+          *a = t2;
+          *x = t1;
+          code = MATCH_EQ;
+        }
       }
       break;
 
@@ -556,47 +556,47 @@ static term_t formula_is_range_constraint(sym_breaker_t *breaker, term_t f, ivec
     case MATCH_EQ:
       assert(term_is_constant(terms, a));
       if (neqs == 0) {
-	y = x; b = a;
+        y = x; b = a;
       } else if (neqs == 1) {
-	/*
-	 * First equality: (y == b). Second equality: (x == a)
-	 */
-	if (y == x) {
-	  // y is the common term, a and b are constant
-	  ivector_push(v, b);
-	  ivector_push(v, a);
-	} else if (y == a && term_is_uconst(terms, x)) {
-	  // y is the common term, b and x are constant
-	  ivector_push(v, b);
-	  ivector_push(v, a);
-	} else if (x == b && term_is_uconst(terms, y)) {
-	  // b is the common term, y and a are constant
-	  ivector_push(v, y);
-	  ivector_push(v, a);
-	  y = b;
-	} else if (a == b && term_is_uconst(terms, y) && term_is_uconst(terms, x)) {
-	  // b is the common term, y and x are constant
-	  ivector_push(v, y);
-	  ivector_push(v, x);
-	  y = b;
-	} else {
-	  // abort
-	  goto done;
-	}
+        /*
+         * First equality: (y == b). Second equality: (x == a)
+         */
+        if (y == x) {
+          // y is the common term, a and b are constant
+          ivector_push(v, b);
+          ivector_push(v, a);
+        } else if (y == a && term_is_uconst(terms, x)) {
+          // y is the common term, b and x are constant
+          ivector_push(v, b);
+          ivector_push(v, a);
+        } else if (x == b && term_is_uconst(terms, y)) {
+          // b is the common term, y and a are constant
+          ivector_push(v, y);
+          ivector_push(v, a);
+          y = b;
+        } else if (a == b && term_is_uconst(terms, y) && term_is_uconst(terms, x)) {
+          // b is the common term, y and x are constant
+          ivector_push(v, y);
+          ivector_push(v, x);
+          y = b;
+        } else {
+          // abort
+          goto done;
+        }
 
       } else {
-	/*
-	 * All equalities so far have the form (y == constant)
-	 * - the current equality is (x == a)
-	 */
-	if (y == x) {
-	  ivector_push(v, a); // match
-	} else if (y == a && term_is_constant(terms, x)) {
-	  ivector_push(v, x); // swap a and x
-	} else {
-	  // no match
-	  goto done;
-	}
+        /*
+         * All equalities so far have the form (y == constant)
+         * - the current equality is (x == a)
+         */
+        if (y == x) {
+          ivector_push(v, a); // match
+        } else if (y == a && term_is_constant(terms, x)) {
+          ivector_push(v, x); // swap a and x
+        } else {
+          // no match
+          goto done;
+        }
       }
       neqs ++;
       break;
@@ -1205,8 +1205,8 @@ static void collect_constants(sym_breaker_t *breaker, term_t t, term_t *c, uint3
     case CONSTANT_TERM:
     case UNINTERPRETED_TERM:
       if (constant_is_in_set(r, c, n, &k)) {
-	assert(0 <= k && k < n && c[k] == r);
-	ivector_push(v, k);
+        assert(0 <= k && k < n && c[k] == r);
+        ivector_push(v, k);
       }
       break;
 
@@ -1528,11 +1528,11 @@ static term_t select_candidate(sym_breaker_t *breaker, sym_breaker_sets_t *s) {
     cost = s->cost[i];
     if (cost <= min_so_far) {
       if (term_is_constant(breaker->terms, t)) {
-	j = i;
-	break;
+        j = i;
+        break;
       } else if (cost < min_so_far) {
-	min_so_far = cost;
-	j = i;
+        min_so_far = cost;
+        j = i;
       }
     }
   }
@@ -1724,7 +1724,7 @@ static int32_t select_constant_for_term(sym_breaker_t *breaker, sym_breaker_sets
     if (cset_member(&s->available, i) && !cset_member(&s->removed, i)) {
       c = s->constants[i];
       if (! aux_eq_is_false(breaker, t, c)) {
-	return i;
+        return i;
       }
     }
   }

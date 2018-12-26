@@ -480,35 +480,35 @@ static void explain_eq(egraph_t *egraph, occ_t x, occ_t y, ivector_t *v) {
     l = literal_for_eq(egraph, x, y);
     if (l >= 0) {
       if (egraph_opposite_occ(egraph, x, y)) {
-	l = not(l);
+        l = not(l);
       }
 
       if (l == true_literal) {
 #if 0
-	printf("---> possible short cut: ");
-	print_literal(stdout, l);
-	printf("\n");
+        printf("---> possible short cut: ");
+        print_literal(stdout, l);
+        printf("\n");
 #endif
-	return;
+        return;
       }
 
       if (literal_value(egraph->core, l) == VAL_TRUE) {
-	a = get_bvar_antecedent(egraph->core, var_of(l));
-	if (antecedent_tag(a) == generic_tag) {
-	  // i.e., l was propagated by the Egraph
-	  id = i32_of_expl(generic_antecedent(a));
-	  if (id < egraph->top_id) {
+        a = get_bvar_antecedent(egraph->core, var_of(l));
+        if (antecedent_tag(a) == generic_tag) {
+          // i.e., l was propagated by the Egraph
+          id = i32_of_expl(generic_antecedent(a));
+          if (id < egraph->top_id) {
 #if 0
-	    printf("---> short cut: ");
-	    print_literal(stdout, l);
-	    printf(" := ");
-	    print_egraph_atom_of_literal(stdout, egraph, l);
-	    printf("\n");
+            printf("---> short cut: ");
+            print_literal(stdout, l);
+            printf(" := ");
+            print_egraph_atom_of_literal(stdout, egraph, l);
+            printf("\n");
 #endif
-	    ivector_push(v, l);
-	    return;
-	  }
-	}
+            ivector_push(v, l);
+            return;
+          }
+        }
       }
     }
   }

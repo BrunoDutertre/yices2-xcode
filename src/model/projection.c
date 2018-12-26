@@ -315,7 +315,7 @@ static void proj_add_arith_var(projector_t *proj, term_t x) {
     if (! int_hset_member(&proj->vars_to_elim, x)) {
       avars = proj_get_avars_to_keep(proj);
       if (int_hset_add(avars, x)) {
-	ivector_push(&proj->arith_vars, x);
+        ivector_push(&proj->arith_vars, x);
       }
     }
   } else {
@@ -477,9 +477,9 @@ static void proj_elim_by_substitution(projector_t *proj) {
     for (i=0; i<n; i++) {
       t = elim_subst_apply(subst, proj->gen_literals.data[i]);
       if (t != true_term) {
-	// keep t
-	proj->gen_literals.data[j] = t;
-	j ++;
+        // keep t
+        proj->gen_literals.data[j] = t;
+        j ++;
       }
     }
     ivector_shrink(&proj->gen_literals, j);

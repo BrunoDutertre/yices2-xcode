@@ -545,7 +545,7 @@ static term_t lit_collector_visit_arith_bineq(lit_collector_t *collect, term_t t
       // atom (t1 == t2)
       r = true_term;
       if (t1 != eq->arg[0] || t2 != eq->arg[1]) {
-	t = mk_arith_eq(collect->manager, t1, t2);
+        t = mk_arith_eq(collect->manager, t1, t2);
       }
     } else {
       // atom (t1 > t2)
@@ -673,9 +673,9 @@ static term_t lit_collector_visit_distinct(lit_collector_t *collect, term_t t, c
     lit_collector_sort_by_value(collect, n, a);
     for (i=0; i<n-1; i++) {
       if (equal_in_model(collect, a[i], a[i+1])) {
-	t = mk_eq(collect->manager, a[i], a[i+1]);
-	lit_collector_add_literal(collect, t); // t is true
-	break;
+        t = mk_eq(collect->manager, a[i], a[i+1]);
+        lit_collector_add_literal(collect, t); // t is true
+        break;
       }
     }
 
@@ -1312,9 +1312,9 @@ static term_t lit_collector_visit(lit_collector_t *collect, term_t t) {
 
     case UNINTERPRETED_TERM:
       if (is_boolean_term(terms, t)) {
-	u = register_atom(collect, t);
+        u = register_atom(collect, t);
       } else {
-	u = t;
+        u = t;
       }
       break;
 

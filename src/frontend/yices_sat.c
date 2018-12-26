@@ -331,7 +331,7 @@ static void print_help(char *progname) {
          "   --help, -h           Print this message and exit\n"
          "   --model, -m          Show a model if the problem is satisfiable\n"
          "   --verbose, -v        Print statistics during the search\n"
-	 "   --stats              Print statistics at the end of the search\n"
+         "   --stats              Print statistics at the end of the search\n"
          "\n"
          "For bug reporting and other information, please see http://yices.csl.sri.com/\n");
   fflush(stdout);
@@ -398,9 +398,9 @@ static void parse_command_line(int argc, char *argv[]) {
         break;
 
       case seed_opt:
-	seed_given = true;
-	seed_value = elem.i_value;
-	break;
+        seed_given = true;
+        seed_value = elem.i_value;
+        break;
 
       case stats_flag:
         stats = true;

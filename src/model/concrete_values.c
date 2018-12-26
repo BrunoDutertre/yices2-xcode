@@ -1067,8 +1067,8 @@ static value_t majority_element(value_t *a, uint32_t n, uint32_t *count) {
       nx ++;
     } else {
       if (nx > nb) {
-	b = x;
-	nb = nx;
+        b = x;
+        nb = nx;
       }
       x = a[i];
       nx = 1;

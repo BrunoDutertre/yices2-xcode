@@ -390,7 +390,7 @@ static void yices_help(char *progname) {
          "    --var-elim\n"
          "    --flatten\n"
          "    --learn-eq\n"
-	 "    --break-symmetries\n"
+         "    --break-symmetries\n"
          "    --arith-elim\n"
          "    --keep-ite\n"
          "  Model construction\n"

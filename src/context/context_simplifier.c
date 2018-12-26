@@ -1418,7 +1418,7 @@ void flatten_assertion(context_t *ctx, term_t f) {
       case ARITH_IS_INT_ATOM:
         intern_tbl_map_root(intern, r, bool2code(tt));
         flatten_arith_is_int(ctx, r, tt);
-	break;
+        break;
 
       case ITE_TERM:
       case ITE_SPECIAL:
@@ -1571,9 +1571,9 @@ static void process_aux_eq(context_t *ctx, term_t eq) {
       t1 = intern_tbl_get_root(&ctx->intern, d->arg[0]);
       t2 = intern_tbl_get_root(&ctx->intern, d->arg[1]);
       if (is_boolean_term(ctx->terms, t1)) {
-	try_bool_substitution(ctx, t1, t2, eq);
+        try_bool_substitution(ctx, t1, t2, eq);
       } else {
-	try_substitution(ctx, t1, t2, eq);
+        try_substitution(ctx, t1, t2, eq);
       }
       break;
 
@@ -1636,10 +1636,10 @@ void process_aux_atoms(context_t *ctx) {
       // already internalized
       code = intern_tbl_map_of_root(&ctx->intern, r);
       if (code == bool2code(false)) {
-	// contradiction
-	longjmp(ctx->env, TRIVIALLY_UNSAT);
+        // contradiction
+        longjmp(ctx->env, TRIVIALLY_UNSAT);
       } else if (code != bool2code(true)) {
-	ivector_push(&ctx->top_atoms, r);
+        ivector_push(&ctx->top_atoms, r);
       }
     } else {
       // not mapped
@@ -1778,59 +1778,59 @@ static void flatten_or_process_queue(context_t *ctx, ivector_t *v) {
     } else {
       kind = term_kind(terms, t);
       if (is_pos_term(t) && kind == OR_TERM) {
-	// add t's children to the queue
-	or = or_term_desc(terms, t);
-	n = or->arity;
-	for (i=0; i<n; i++) {
-	  flatten_or_push_term(ctx, or->arg[i]);
-	}
+        // add t's children to the queue
+        or = or_term_desc(terms, t);
+        n = or->arity;
+        for (i=0; i<n; i++) {
+          flatten_or_push_term(ctx, or->arg[i]);
+        }
       } else if (is_neg_term(t) && context_flatten_diseq_enabled(ctx)) {
-	switch (kind) {
-	case ARITH_EQ_ATOM:
-	  /*
-	   * t is (not (eq x 0)): rewrite to (or (x < 0) (x > 0))
-	   *
-	   * Exception: keep it as an equality if x is an if-then-else term
-	   */
-	  x = intern_tbl_get_root(&ctx->intern, arith_eq_arg(terms, t));
-	  if (is_ite_term(terms, x)) {
-	    ivector_push(v, t);
-	  } else {
-	    flatten_or_add_term(ctx, v, lt0_atom(ctx, x));
-	    flatten_or_add_term(ctx, v, gt0_atom(ctx, x));
-	  }
-	  break;
+        switch (kind) {
+        case ARITH_EQ_ATOM:
+          /*
+           * t is (not (eq x 0)): rewrite to (or (x < 0) (x > 0))
+           *
+           * Exception: keep it as an equality if x is an if-then-else term
+           */
+          x = intern_tbl_get_root(&ctx->intern, arith_eq_arg(terms, t));
+          if (is_ite_term(terms, x)) {
+            ivector_push(v, t);
+          } else {
+            flatten_or_add_term(ctx, v, lt0_atom(ctx, x));
+            flatten_or_add_term(ctx, v, gt0_atom(ctx, x));
+          }
+          break;
 
-	case ARITH_BINEQ_ATOM:
-	  /*
-	   * t is (not (eq x y)): rewrite to (or (x < y) (y < x))
-	   *
-	   * Exception 1: if x or y is an if-then-else term, then it's
-	   * better to keep (eq x y) because the if-lifting
-	   * simplifications are more likely to work on
-	   *    (ite c a b) = y
-	   * than (ite c a b) >= y AND (ite c a b) <= y
-	   *
-	   * Exception 2: if there's an egraph, then it's better
-	   * to keep (eq x y) as is. It will be converted to an
-	   * egraph equality.
-	   */
-	  eq = arith_bineq_atom_desc(terms, t);
-	  x = intern_tbl_get_root(&ctx->intern, eq->arg[0]);
-	  y = intern_tbl_get_root(&ctx->intern, eq->arg[1]);
-	  if (context_has_egraph(ctx) || is_ite_term(terms, x) || is_ite_term(terms, y)) {
-	    ivector_push(v, t);
-	  } else {
-	    flatten_or_add_term(ctx, v, lt_atom(ctx, x, y));
-	    flatten_or_add_term(ctx, v, lt_atom(ctx, y, x));
-	  }
-	  break;
+        case ARITH_BINEQ_ATOM:
+          /*
+           * t is (not (eq x y)): rewrite to (or (x < y) (y < x))
+           *
+           * Exception 1: if x or y is an if-then-else term, then it's
+           * better to keep (eq x y) because the if-lifting
+           * simplifications are more likely to work on
+           *    (ite c a b) = y
+           * than (ite c a b) >= y AND (ite c a b) <= y
+           *
+           * Exception 2: if there's an egraph, then it's better
+           * to keep (eq x y) as is. It will be converted to an
+           * egraph equality.
+           */
+          eq = arith_bineq_atom_desc(terms, t);
+          x = intern_tbl_get_root(&ctx->intern, eq->arg[0]);
+          y = intern_tbl_get_root(&ctx->intern, eq->arg[1]);
+          if (context_has_egraph(ctx) || is_ite_term(terms, x) || is_ite_term(terms, y)) {
+            ivector_push(v, t);
+          } else {
+            flatten_or_add_term(ctx, v, lt_atom(ctx, x, y));
+            flatten_or_add_term(ctx, v, lt_atom(ctx, y, x));
+          }
+          break;
 
-	default:
-	  // can't flatten
-	  ivector_push(v, t);
-	  break;
-	}
+        default:
+          // can't flatten
+          ivector_push(v, t);
+          break;
+        }
 
       } else {
         // can't flatten
@@ -1912,52 +1912,52 @@ static void flatten_or_recur(context_t *ctx, ivector_t *v, term_t t) {
           flatten_or_recur(ctx, v, or->arg[i]);
         }
       } else if (is_neg_term(t) && context_flatten_diseq_enabled(ctx)) {
-	switch (kind) {
-	case ARITH_EQ_ATOM:
-	  /*
-	   * t is (not (eq x 0)): rewrite to (or (x < 0) (x > 0))
-	   *
-	   * Exception: keep it as an equality if x is an if-then-else term
-	   */
-	  x = intern_tbl_get_root(&ctx->intern, arith_eq_arg(terms, t));
-	  if (is_ite_term(terms, x)) {
-	    ivector_push(v, t);
-	  } else {
-	    flatten_or_add_term(ctx, v, lt0_atom(ctx, x));
-	    flatten_or_add_term(ctx, v, gt0_atom(ctx, x));
-	  }
-	  break;
+        switch (kind) {
+        case ARITH_EQ_ATOM:
+          /*
+           * t is (not (eq x 0)): rewrite to (or (x < 0) (x > 0))
+           *
+           * Exception: keep it as an equality if x is an if-then-else term
+           */
+          x = intern_tbl_get_root(&ctx->intern, arith_eq_arg(terms, t));
+          if (is_ite_term(terms, x)) {
+            ivector_push(v, t);
+          } else {
+            flatten_or_add_term(ctx, v, lt0_atom(ctx, x));
+            flatten_or_add_term(ctx, v, gt0_atom(ctx, x));
+          }
+          break;
 
-	case ARITH_BINEQ_ATOM:
-	  /*
-	   * t is (not (eq x y)): rewrite to (or (x < y) (y < x))
-	   *
-	   * Exception 1: if x or y is an if-then-else term, then it's
-	   * better to keep (eq x y) because the if-lifting
-	   * simplifications are more likely to work on
-	   *    (ite c a b) = y
-	   * than (ite c a b) >= y AND (ite c a b) <= y
-	   *
-	   * Exception 2: if there's an egraph, then it's better
-	   * to keep (eq x y) as is. It will be converted to an
-	   * egraph equality.
-	   */
-	  eq = arith_bineq_atom_desc(terms, t);
-	  x = intern_tbl_get_root(&ctx->intern, eq->arg[0]);
-	  y = intern_tbl_get_root(&ctx->intern, eq->arg[1]);
-	  if (context_has_egraph(ctx) || is_ite_term(terms, x) || is_ite_term(terms, y)) {
-	    ivector_push(v, t);
-	  } else {
-	    flatten_or_add_term(ctx, v, lt_atom(ctx, x, y));
-	    flatten_or_add_term(ctx, v, lt_atom(ctx, y, x));
-	  }
-	  break;
+        case ARITH_BINEQ_ATOM:
+          /*
+           * t is (not (eq x y)): rewrite to (or (x < y) (y < x))
+           *
+           * Exception 1: if x or y is an if-then-else term, then it's
+           * better to keep (eq x y) because the if-lifting
+           * simplifications are more likely to work on
+           *    (ite c a b) = y
+           * than (ite c a b) >= y AND (ite c a b) <= y
+           *
+           * Exception 2: if there's an egraph, then it's better
+           * to keep (eq x y) as is. It will be converted to an
+           * egraph equality.
+           */
+          eq = arith_bineq_atom_desc(terms, t);
+          x = intern_tbl_get_root(&ctx->intern, eq->arg[0]);
+          y = intern_tbl_get_root(&ctx->intern, eq->arg[1]);
+          if (context_has_egraph(ctx) || is_ite_term(terms, x) || is_ite_term(terms, y)) {
+            ivector_push(v, t);
+          } else {
+            flatten_or_add_term(ctx, v, lt_atom(ctx, x, y));
+            flatten_or_add_term(ctx, v, lt_atom(ctx, y, x));
+          }
+          break;
 
-	default:
-	  // can't flatten
-	  ivector_push(v, t);
-	  break;
-	}
+        default:
+          // can't flatten
+          ivector_push(v, t);
+          break;
+        }
 
       } else {
         // can't flatten
@@ -2443,7 +2443,7 @@ static bool check_dl_distinct_atom(context_t *ctx, term_t *a, uint32_t n, bool i
   for (i=0; i<n-1; i++) {
     for (j=i+1; j<n; j++) {
       if (! check_dl_eq_atom(ctx, a[i], a[j], idl)) {
-	return false;
+        return false;
       }
     }
   }
@@ -2514,7 +2514,7 @@ static void analyze_dl(context_t *ctx, term_t t, bool idl) {
     case DISTINCT_TERM:
       cmp = composite_for_idx(terms, idx);
       if (! check_dl_distinct_atom(ctx, cmp->arg, cmp->arity, idl)) {
-	goto abort;
+        goto abort;
       }
       break;
 

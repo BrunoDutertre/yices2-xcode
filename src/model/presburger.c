@@ -960,13 +960,13 @@ static void scale_constraint(presburger_constraint_t *constraint, term_t y, rati
     for(i = 0; i < nterms; i++){
       aux = &mono[i].coeff;
       if (mono[i].var == y){
-	if (q_is_neg(aux)){
-	  q_set_minus_one(aux);
-	} else {
-	  q_set_one(aux);
-	}
+        if (q_is_neg(aux)){
+          q_set_minus_one(aux);
+        } else {
+          q_set_one(aux);
+        }
       } else {
-	q_mul(aux, &factor);
+        q_mul(aux, &factor);
       }
     }
 
@@ -1054,12 +1054,12 @@ static polynomial_t *extract_poly(poly_buffer_t *buffer, const presburger_constr
   q_init(&one);
   q_set_one(&one);
   
-  if(positive){
+  if (positive) {
     //subtract all non-y monomials in constraint from the buffer
     for(i = 0; i < nterms; i++){
       var = constraint-> mono[i].var;
       if (var != y){
-	poly_buffer_sub_monomial(buffer, var, (rational_t *)&constraint->mono[i].coeff);
+        poly_buffer_sub_monomial(buffer, var, (rational_t *)&constraint->mono[i].coeff);
       }
     }
     if (isge){ poly_buffer_sub_const(buffer, &one); }
@@ -1068,7 +1068,7 @@ static polynomial_t *extract_poly(poly_buffer_t *buffer, const presburger_constr
     for(i = 0; i < nterms; i++){
       var = constraint->mono[i].var;
       if (var != y){
-	poly_buffer_add_monomial(buffer, var, (rational_t *)&constraint->mono[i].coeff);
+        poly_buffer_add_monomial(buffer, var, (rational_t *)&constraint->mono[i].coeff);
       }
     }
     if (isge){ poly_buffer_add_const(buffer, &one); }
@@ -1126,7 +1126,8 @@ static bool cooperize_constraint(poly_buffer_t *buffer, presburger_constraint_t 
     *kind = VAR_DV;
     return true;
 
-  default: return false;
+  default:
+    return false;
   }
 
   return true;
@@ -1172,19 +1173,19 @@ static void presburger_cooperize(presburger_t *pres, term_t y, cooper_t *cooper)
       q_init(&val);
       eval_polynomial_in_model(vtbl, &val, poly->mono, poly->nterms);
       if(cooper->lub == NULL){
-	cooper->lub = poly;
-	q_set(&cooper->lubv, &val);
-      } else {
-	if(q_lt(&val, &cooper->lubv)){
-	  // poly is the new lub
-	  free_polynomial(cooper->lub);
-	  cooper->lub = poly;
-	  q_set(&cooper->lubv, &val);
-	} else {
-	  // current lub still good; just clean up
-	  free_polynomial(poly);
-	  poly = NULL;
-	}
+        cooper->lub = poly;
+        q_set(&cooper->lubv, &val);
+            } else {
+        if(q_lt(&val, &cooper->lubv)){
+          // poly is the new lub
+          free_polynomial(cooper->lub);
+          cooper->lub = poly;
+          q_set(&cooper->lubv, &val);
+        } else {
+          // current lub still good; just clean up
+          free_polynomial(poly);
+          poly = NULL;
+        }
       }
       q_clear(&val);
       break;
@@ -1194,19 +1195,19 @@ static void presburger_cooperize(presburger_t *pres, term_t y, cooper_t *cooper)
       q_init(&val);
       eval_polynomial_in_model(vtbl, &val, poly->mono, poly->nterms);
       if(cooper->glb == NULL){
-	cooper->glb = poly;
-	q_set(&cooper->glbv, &val);
-      } else {
-	if(q_gt(&val, &cooper->glbv)){
-	  // poly is the new glb
-	  free_polynomial(cooper->glb);
-	  cooper->glb = poly;
-	  q_set(&cooper->glbv, &val);
-	} else {
-	  // current glb still good; just clean up
-	  free_polynomial(poly);
-	  poly = NULL;
-	}
+        cooper->glb = poly;
+        q_set(&cooper->glbv, &val);
+            } else {
+        if(q_gt(&val, &cooper->glbv)){
+          // poly is the new glb
+          free_polynomial(cooper->glb);
+          cooper->glb = poly;
+          q_set(&cooper->glbv, &val);
+        } else {
+          // current glb still good; just clean up
+          free_polynomial(poly);
+          poly = NULL;
+        }
       }
       q_clear(&val);
       break;
@@ -1215,11 +1216,11 @@ static void presburger_cooperize(presburger_t *pres, term_t y, cooper_t *cooper)
     case VAR_EQ:
       // y = poly; our work is almost over
       if(cooper->poly == NULL){
-	cooper->poly = poly;
+        cooper->poly = poly;
       } else {
-	// current exact solution can stay
-	free_polynomial(poly);
-	poly = NULL;
+        // current exact solution can stay
+        free_polynomial(poly);
+        poly = NULL;
       }
       break;
       
@@ -1320,13 +1321,13 @@ static presburger_constraint_t *presburger_subst_in_constraint(presburger_t *pre
     for(i = 0; i < nterms; i++){
 
       if (c->mono[i].var == y){
-	if(q_is_one(coeff)){
-	  poly_buffer_add_poly(buffer, solution);
-	} else {
-	  poly_buffer_sub_poly(buffer, solution);
-	}
+        if(q_is_one(coeff)){
+          poly_buffer_add_poly(buffer, solution);
+        } else {
+          poly_buffer_sub_poly(buffer, solution);
+        }
       } else {
-	poly_buffer_add_monomial(buffer,  c->mono[i].var, &c->mono[i].coeff);
+        poly_buffer_add_monomial(buffer,  c->mono[i].var, &c->mono[i].coeff);
       }
     }
     normalize_poly_buffer(buffer);

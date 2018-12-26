@@ -205,7 +205,7 @@ static void model_print_function_assignments(FILE *f, model_t *model, term_t *a,
           vtbl_print_object(f, &model->vtbl, c);
           fputs(")\n", f);
         } else {
-	  vtbl_push_object(&model->vtbl, c);
+          vtbl_push_object(&model->vtbl, c);
         }
       }
     }
@@ -450,7 +450,7 @@ static void eval_print_function_assignments(FILE *f, evaluator_t *eval, term_t *
           vtbl_print_object(f, &model->vtbl, c);
           fputs(")\n", f);
         } else {
-	  vtbl_push_object(&model->vtbl, c);
+          vtbl_push_object(&model->vtbl, c);
         }
       }
     }
@@ -715,7 +715,7 @@ static void model_pp_function_assignments(yices_pp_t *printer, model_t *model, t
           vtbl_pp_object(printer, &model->vtbl, c);
           pp_close_block(printer, true);
         } else {
-	  vtbl_push_object(&model->vtbl, c);
+          vtbl_push_object(&model->vtbl, c);
         }
       }
     }
@@ -952,7 +952,7 @@ static void eval_pp_function_assignments(yices_pp_t *printer, evaluator_t *eval,
           vtbl_pp_object(printer, &model->vtbl, c);
           pp_close_block(printer, true);
         } else {
-	  vtbl_push_object(&model->vtbl, c);
+          vtbl_push_object(&model->vtbl, c);
         }
       }
     }

@@ -217,12 +217,12 @@ static void parse_command_line(int argc, char *argv[]) {
 
     case cmdline_argument:
       if (filename == NULL) {
-	filename = elem.arg;
+        filename = elem.arg;
       } else {
-	fprintf(stderr, "%s: too many arguments\n", parser.command_name);
-	print_usage(parser.command_name);
-	code = YICES_EXIT_USAGE;
-	goto exit;
+        fprintf(stderr, "%s: too many arguments\n", parser.command_name);
+        print_usage(parser.command_name);
+        code = YICES_EXIT_USAGE;
+        goto exit;
       }
       break;
 
@@ -230,83 +230,83 @@ static void parse_command_line(int argc, char *argv[]) {
       k = elem.key;
       switch (k) {
       case show_version_opt:
-	print_version();
-	code = YICES_EXIT_SUCCESS;
-	goto exit;
+        print_version();
+        code = YICES_EXIT_SUCCESS;
+        goto exit;
 
       case show_help_opt:
-	print_help(parser.command_name);
-	code = YICES_EXIT_SUCCESS;
-	goto exit;
+        print_help(parser.command_name);
+        code = YICES_EXIT_SUCCESS;
+        goto exit;
 
       case show_stats_opt:
-	show_stats = true;
-	break;
+        show_stats = true;
+        break;
 
       case verbosity_opt:
-	v = elem.i_value;
-	if (v < 0) {
-	  fprintf(stderr, "%s: the verbosity level must be non-negative\n", parser.command_name);
-	  print_usage(parser.command_name);
-	  code = YICES_EXIT_USAGE;
-	  goto exit;
-	}
-	verbosity = v;
-	break;
+        v = elem.i_value;
+        if (v < 0) {
+          fprintf(stderr, "%s: the verbosity level must be non-negative\n", parser.command_name);
+          print_usage(parser.command_name);
+          code = YICES_EXIT_USAGE;
+          goto exit;
+        }
+        verbosity = v;
+        break;
 
       case timeout_opt:
-	v = elem.i_value;
-	if (v < 0) {
-	  fprintf(stderr, "%s: the timeout must be non-negative\n", parser.command_name);
-	  print_usage(parser.command_name);
-	  code = YICES_EXIT_USAGE;
-	  goto exit;
-	}
-	timeout = v;
-	break;
+        v = elem.i_value;
+        if (v < 0) {
+          fprintf(stderr, "%s: the timeout must be non-negative\n", parser.command_name);
+          print_usage(parser.command_name);
+          code = YICES_EXIT_USAGE;
+          goto exit;
+        }
+        timeout = v;
+        break;
 
       case incremental_opt:
-	incremental = true;
-	break;
+        incremental = true;
+        break;
 
       case interactive_opt:
-	interactive = true;
-	break;
+        interactive = true;
+        break;
 
       case delegate_opt:
-	if (delegate == NULL) {
-	  if (strcmp(elem.s_value, "y2sat") == 0) {
-	    delegate = "y2sat";
-	  } else if (strcmp(elem.s_value, "cadical") == 0) {
-#ifdef HAVE_CADICAL
-	    delegate = "cadical";
-#else
-	    fprintf(stderr, "%s: unsupported delegate: this version was not compiled to support cadical\n", parser.command_name);
-	    print_usage(parser.command_name);
-	    code = YICES_EXIT_USAGE;
-	    goto exit;
-#endif
-	  } else {
-	    fprintf(stderr, "%s: unsupported delegate: %s (choices are 'y2sat' or 'cadical')\n", parser.command_name, elem.s_value);
-	    print_usage(parser.command_name);
-	    code = YICES_EXIT_USAGE;
-	    goto exit;
-	  }
-	} else if (strcmp(elem.s_value, delegate) != 0) {
-	  fprintf(stderr, "%s: can't give several delegates\n", parser.command_name);
-	  print_usage(parser.command_name);
-	  code = YICES_EXIT_USAGE;
-	  goto exit;
-	}
-	break;
+        if (delegate == NULL) {
+          if (strcmp(elem.s_value, "y2sat") == 0) {
+            delegate = "y2sat";
+          } else if (strcmp(elem.s_value, "cadical") == 0) {
+      #ifdef HAVE_CADICAL
+            delegate = "cadical";
+      #else
+            fprintf(stderr, "%s: unsupported delegate: this version was not compiled to support cadical\n", parser.command_name);
+            print_usage(parser.command_name);
+            code = YICES_EXIT_USAGE;
+            goto exit;
+      #endif
+          } else {
+            fprintf(stderr, "%s: unsupported delegate: %s (choices are 'y2sat' or 'cadical')\n", parser.command_name, elem.s_value);
+            print_usage(parser.command_name);
+            code = YICES_EXIT_USAGE;
+            goto exit;
+          }
+        } else if (strcmp(elem.s_value, delegate) != 0) {
+          fprintf(stderr, "%s: can't give several delegates\n", parser.command_name);
+          print_usage(parser.command_name);
+          code = YICES_EXIT_USAGE;
+          goto exit;
+        }
+        break;
 
       case mcsat_opt:
 #if HAVE_MCSAT
         mcsat = true;
 #else
-	fprintf(stderr, "mcsat is not supported: %s was not compiled with mcsat support\n", parser.command_name);
-	code = YICES_EXIT_USAGE;
-	goto exit;
+        fprintf(stderr, "mcsat is not supported: %s was not compiled with mcsat support\n", parser.command_name);
+        code = YICES_EXIT_USAGE;
+        goto exit;
 #endif
         break;
 
@@ -560,8 +560,8 @@ static void force_utf8(void) {
   for (i=0; i<NUM_LOCALES; i++) {
     if (setlocale(LC_CTYPE, locales[i]) != NULL) {
       if (verbosity > 1) {
-	fprintf(stderr, "Switched to locale '%s'\n", setlocale(LC_CTYPE, NULL));
-	fflush(stderr);
+        fprintf(stderr, "Switched to locale '%s'\n", setlocale(LC_CTYPE, NULL));
+        fflush(stderr);
       }
       return;
     }
@@ -628,9 +628,9 @@ int main(int argc, char *argv[]) {
     if (code < 0) {
       // syntax error
       if (interactive) {
-	flush_lexer(&lexer);
+        flush_lexer(&lexer);
       } else {
-	break; // exit
+        break; // exit
       }
     }
   }

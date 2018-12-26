@@ -272,7 +272,7 @@ static void ef_flatten_distribute(ef_analyzer_t *ef, composite_term_t *d) {
     ivector_push(v, opposite_term(b->arg[k]));   // this is not b[k]
     for (i=0; i<n; i++) {
       if (i != j) {
-	ivector_push(v, d->arg[i]); // a[i] for i/=j
+        ivector_push(v, d->arg[i]); // a[i] for i/=j
       }
     }
     t = mk_or(ef->manager, v->size, v->data);  // t is (or b[i] a[0] ...)
@@ -307,26 +307,26 @@ static void ef_flatten_quantifiers_conjuncts(ef_analyzer_t *ef, bool toplevel, b
       d = ite_term_desc(terms, t);
       assert(d->arity == 3);
       if (f_ite && is_boolean_term(terms, d->arg[1])) {
-	assert(is_boolean_term(terms, d->arg[2]));
-	/*
-	 * If t is (ite C A B)
-	 *    u := (C => A)
-	 *    v := (not C => B)
-	 * Otherwise, t is (not (ite C A B))
-	 *    u := (C => not A)
-	 *    v := (not C => not B)
-	 */
-	u = d->arg[1];  // A
-	v = d->arg[2];  // B
-	if (is_neg_term(t)) {
-	  u = opposite_term(u);
-	  v = opposite_term(v);
-	}
-	u = mk_implies(ef->manager, d->arg[0], u); // (C => u)
-	v = mk_implies(ef->manager, opposite_term(d->arg[0]), v); // (not C) => v
-	ef_push_term(ef, u);
-	ef_push_term(ef, v);
-	continue;
+        assert(is_boolean_term(terms, d->arg[2]));
+        /*
+         * If t is (ite C A B)
+         *    u := (C => A)
+         *    v := (not C => B)
+         * Otherwise, t is (not (ite C A B))
+         *    u := (C => not A)
+         *    v := (not C => not B)
+         */
+        u = d->arg[1];  // A
+        v = d->arg[2];  // B
+        if (is_neg_term(t)) {
+          u = opposite_term(u);
+          v = opposite_term(v);
+        }
+        u = mk_implies(ef->manager, d->arg[0], u); // (C => u)
+        v = mk_implies(ef->manager, opposite_term(d->arg[0]), v); // (not C) => v
+        ef_push_term(ef, u);
+        ef_push_term(ef, v);
+        continue;
       }
       break;
 
@@ -334,73 +334,73 @@ static void ef_flatten_quantifiers_conjuncts(ef_analyzer_t *ef, bool toplevel, b
       d = eq_term_desc(terms, t);
       assert(d->arity == 2);
       if (f_iff && is_boolean_term(terms, d->arg[0])) {
-	assert(is_boolean_term(terms, d->arg[1]));
-	/*
-	 * t is either (iff A B) or (not (iff A B)):
-	 */
-	u = d->arg[0]; // A
-	v = d->arg[1]; // B
-	if (is_neg_term(t)) {
-	  u = opposite_term(u);
-	}
-	// flatten to (u => v) and (v => u)
-	t = mk_implies(ef->manager, u, v); // (u => v)
-	u = mk_implies(ef->manager, v, u); // (v => u);
-	ef_push_term(ef, t);
-	ef_push_term(ef, u);
-	continue;
+        assert(is_boolean_term(terms, d->arg[1]));
+        /*
+         * t is either (iff A B) or (not (iff A B)):
+         */
+        u = d->arg[0]; // A
+        v = d->arg[1]; // B
+        if (is_neg_term(t)) {
+          u = opposite_term(u);
+        }
+        // flatten to (u => v) and (v => u)
+        t = mk_implies(ef->manager, u, v); // (u => v)
+        u = mk_implies(ef->manager, v, u); // (v => u);
+        ef_push_term(ef, t);
+        ef_push_term(ef, u);
+        continue;
       }
       break;
 
     case OR_TERM:
       d = or_term_desc(terms, t);
       if (is_neg_term(t)) {
-	/*
-	 * t is (not (or a[0] ... a[n-1]))
-	 * it flattens to (and (not a[0]) ... (not a[n-1]))
-	 */
-	n = d->arity;
-	for (i=0; i<n; i++) {
-	  ef_push_term(ef, opposite_term(d->arg[i]));
-	}
-	continue;
-      } else if (ef_distribute_is_cheap(ef, d)) {
-	ef_flatten_distribute(ef, d);
-	continue;
+        /*
+         * t is (not (or a[0] ... a[n-1]))
+         * it flattens to (and (not a[0]) ... (not a[n-1]))
+         */
+        n = d->arity;
+        for (i=0; i<n; i++) {
+          ef_push_term(ef, opposite_term(d->arg[i]));
+        }
+        continue;
+            } else if (ef_distribute_is_cheap(ef, d)) {
+        ef_flatten_distribute(ef, d);
+        continue;
       }
       break;
 
     case FORALL_TERM:
       if (is_pos_term(t)) {
-	//if we are on the first pass we defer foralls
-	if (toplevel){
-	  ivector_push(&ef->foralls, t);
-	  continue;
-	} 
-	d = forall_term_desc(terms, t);
-	n = d->arity;
-	assert(n >= 2);
-	/*
-	 * t is (FORALL x_0 ... x_k : body)
-	 * body is the last argument in the term descriptor
-	 */
-	ef_push_term(ef, d->arg[n-1]);
-	continue;
+        //if we are on the first pass we defer foralls
+        if (toplevel){
+          ivector_push(&ef->foralls, t);
+          continue;
+        } 
+        d = forall_term_desc(terms, t);
+        n = d->arity;
+        assert(n >= 2);
+        /*
+         * t is (FORALL x_0 ... x_k : body)
+         * body is the last argument in the term descriptor
+         */
+        ef_push_term(ef, d->arg[n-1]);
+        continue;
       } else {
-	//if we are not on the first pass we punt on exists
-	if ( ! toplevel){
-	  break;
-	}
-	d = forall_term_desc(terms, t);
-	n = d->arity;
-	assert(n >= 2);
-	/* the existential case 
-	 * t is (NOT (FORALL x_0 ... x_k : body)
-	 * body is the last argument in the term descriptor
-	 */
-	ef_analyzer_add_existentials(ef, d->arg, n-1);
-	ef_push_term(ef, opposite_term(d->arg[n-1]));
-	continue;
+        //if we are not on the first pass we punt on exists
+        if ( ! toplevel){
+          break;
+        }
+        d = forall_term_desc(terms, t);
+        n = d->arity;
+        assert(n >= 2);
+        /* the existential case 
+         * t is (NOT (FORALL x_0 ... x_k : body)
+         * body is the last argument in the term descriptor
+         */
+        ef_analyzer_add_existentials(ef, d->arg, n-1);
+        ef_push_term(ef, opposite_term(d->arg[n-1]));
+        continue;
       } 
       
     default:
@@ -495,26 +495,26 @@ static void ef_build_disjuncts(ef_analyzer_t *ef, bool f_ite, bool f_iff, ivecto
       d = ite_term_desc(terms, t);
       assert(d->arity == 3);
       if (f_ite && is_boolean_term(terms, d->arg[1])) {
-	assert(is_boolean_term(terms, d->arg[2]));
-	/*
-	 * If t is (ite C A B)
-	 *    u := (C AND A)
-	 *    v := (not C AND B)
-	 * Otherwise, t is (not (ite C A B))
-	 *    u := (C AND not A)
-	 *    v := (not C AND not B)
-	 */
-	u = d->arg[1];  // A
-	v = d->arg[2];  // B
-	if (is_neg_term(t)) {
-	  u = opposite_term(u); // NOT A
-	  v = opposite_term(v); // NOT B
-	}
-	u = mk_binary_and(ef->manager, d->arg[0], u); // (C AND u)
-	v = mk_binary_and(ef->manager, opposite_term(d->arg[0]), v); // (not C) AND v
-	ef_push_term(ef, u);
-	ef_push_term(ef, v);
-	continue;
+        assert(is_boolean_term(terms, d->arg[2]));
+        /*
+         * If t is (ite C A B)
+         *    u := (C AND A)
+         *    v := (not C AND B)
+         * Otherwise, t is (not (ite C A B))
+         *    u := (C AND not A)
+         *    v := (not C AND not B)
+         */
+        u = d->arg[1];  // A
+        v = d->arg[2];  // B
+        if (is_neg_term(t)) {
+          u = opposite_term(u); // NOT A
+          v = opposite_term(v); // NOT B
+        }
+        u = mk_binary_and(ef->manager, d->arg[0], u); // (C AND u)
+        v = mk_binary_and(ef->manager, opposite_term(d->arg[0]), v); // (not C) AND v
+        ef_push_term(ef, u);
+        ef_push_term(ef, v);
+        continue;
       }
       break;
 
@@ -522,35 +522,35 @@ static void ef_build_disjuncts(ef_analyzer_t *ef, bool f_ite, bool f_iff, ivecto
       d = eq_term_desc(terms, t);
       assert(d->arity == 2);
       if (f_iff && is_boolean_term(terms, d->arg[0])) {
-	assert(is_boolean_term(terms, d->arg[1]));
-	/*
-	 * t is either (iff A B) or (not (iff A B)):
-	 */
-	u = d->arg[0]; // A
-	v = d->arg[1]; // B
-	if (is_neg_term(t)) {
-	  u = opposite_term(u);
-	}
-	// flatten to (u AND v) or ((not u) AND (not v))
-	t = mk_binary_and(ef->manager, u, v); // (u AND v)
-	u = mk_binary_and(ef->manager, opposite_term(u), opposite_term(v)); // (not u AND not v);
-	ef_push_term(ef, t);
-	ef_push_term(ef, u);
-	continue;
+        assert(is_boolean_term(terms, d->arg[1]));
+        /*
+         * t is either (iff A B) or (not (iff A B)):
+         */
+        u = d->arg[0]; // A
+        v = d->arg[1]; // B
+        if (is_neg_term(t)) {
+          u = opposite_term(u);
+        }
+        // flatten to (u AND v) or ((not u) AND (not v))
+        t = mk_binary_and(ef->manager, u, v); // (u AND v)
+        u = mk_binary_and(ef->manager, opposite_term(u), opposite_term(v)); // (not u AND not v);
+        ef_push_term(ef, t);
+        ef_push_term(ef, u);
+        continue;
       }
       break;
 
     case OR_TERM:
       if (is_pos_term(t)) {
-	/*
-	 * t is (or a[0] ... a[n-1])
-	 */
-	d = or_term_desc(terms, t);
-	n = d->arity;
-	for (i=0; i<n; i++) {
-	  ef_push_term(ef, d->arg[i]);
-	}
-	continue;
+        /*
+         * t is (or a[0] ... a[n-1])
+         */
+        d = or_term_desc(terms, t);
+        n = d->arity;
+        for (i=0; i<n; i++) {
+          ef_push_term(ef, d->arg[i]);
+        }
+        continue;
       }
       break;
 
@@ -1124,8 +1124,8 @@ static void ef_simplify_clause(ef_analyzer_t *ef, ef_clause_t *c) {
       t = c->guarantees.data[i];
       u = elim_subst_apply(&elim, t);
       if (u != false_term) {
-	c->guarantees.data[j] = u;
-	j ++;
+        c->guarantees.data[j] = u;
+        j ++;
       }
     }
     ivector_shrink(&c->guarantees, j);
@@ -1136,10 +1136,10 @@ static void ef_simplify_clause(ef_analyzer_t *ef, ef_clause_t *c) {
       t = c->assumptions.data[i];
       u = elim_subst_apply(&elim, t);
       if (t == u) {
-	c->assumptions.data[j] = t;
-	j ++;
+        c->assumptions.data[j] = t;
+        j ++;
       } else if (u != false_term) {
-	ef_clause_add_guarantee(c, u);
+        ef_clause_add_guarantee(c, u);
       }
     }
     ivector_shrink(&c->assumptions, j);

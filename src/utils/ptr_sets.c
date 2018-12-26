@@ -210,7 +210,7 @@ static void copy_ptr_set(ptr_set_t *s2, ptr_set_t *s1) {
     for (i=0; i<n; i++) {
       p = s1->data[i];
       if (live_ptr_elem(p)) {
-	clean_add_ptr_to_hash_set(s2, p);
+        clean_add_ptr_to_hash_set(s2, p);
       }
     }
   } else {
@@ -218,7 +218,7 @@ static void copy_ptr_set(ptr_set_t *s2, ptr_set_t *s1) {
     for (i=0; i<n; i++) {
       p = s1->data[i];
       if (live_ptr_elem(p)) {
-	clean_add_ptr_to_seq_set(s2, p);
+        clean_add_ptr_to_seq_set(s2, p);
       }
     }
   }
@@ -506,7 +506,7 @@ void ptr_set_iterate(ptr_set_t *s, void *aux, ptr_set_iterator_t f) {
     for (i=0; i<n; i++) {
       p = s->data[i];
       if (live_ptr_elem(p)) {
-	f(aux, p);
+        f(aux, p);
       }
     }
   }

@@ -744,7 +744,7 @@ static bool is_multiple_of_four(uint32_t x) {
 /*
  * Some consistency checks
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static bool clause_pool_invariant(const clause_pool_t *pool) {
   return
     pool->learned <= pool->size &&
@@ -918,7 +918,7 @@ static cidx_t clause_pool_add_learned_clause(clause_pool_t *pool, uint32_t n, co
 /*
  * ACCESS CLAUSES
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static inline bool good_clause_idx(const clause_pool_t *pool, cidx_t idx) {
   return ((idx & 3) == 0) && idx < pool->size;
 }
@@ -968,7 +968,7 @@ static inline bool clause_is_unmarked(const clause_pool_t *pool, cidx_t idx) {
   return (pool->data[idx] & CLAUSE_MARK) == 0;
 }
 
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static inline bool clause_is_marked(const clause_pool_t *pool, cidx_t idx) {
   return !clause_is_unmarked(pool, idx);
 }
@@ -1835,7 +1835,7 @@ static cidx_t push_clause(clause_stack_t *s, uint32_t n, const literal_t *a) {
 /*
  * READ STACKED CLAUSES
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static inline bool good_stacked_clause_idx(const clause_stack_t *s, cidx_t idx) {
   return ((idx & 3) == 0) && idx < s->top;
 }
@@ -1858,7 +1858,7 @@ static inline cidx_t next_stacked_clause(const clause_stack_t *s, cidx_t idx) {
 }
 #endif
 
-#if DEBUGGING || !defined(NDEBUGGING)
+#if DEBUGGING || !defined(NDEBUG)
 static inline literal_t first_literal_of_stacked_clause(const clause_stack_t *s, cidx_t idx) {
   assert(good_stacked_clause_idx(s, idx));
   return s->data[idx + 2];
@@ -3308,7 +3308,7 @@ static void add_large_clause(sat_solver_t *solver, uint32_t n, const literal_t *
 
   assert(n >= 2);
 
-#ifndef NDEBUGGING
+#ifndef NDEBUG
   // check that all literals are valid
   for (uint32_t i=0; i<n; i++) {
     assert(lit[i] < solver->nliterals);
@@ -3439,7 +3439,7 @@ static inline bool lit_is_active(const sat_solver_t *solver, literal_t l) {
  * - if l is neg_lit(x) then subst(l) is not(ante_data[x])
  * In both cases, subst(l) is ante_data[x] ^ sign_of_lit(l)
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static inline literal_t base_subst(const sat_solver_t *solver, literal_t l) {
   assert(l < solver->nliterals && solver->ante_tag[var_of(l)] == ATAG_SUBST);
   return solver->ante_data[var_of(l)] ^ sign_of_lit(l);
@@ -4385,8 +4385,8 @@ static literal_t scc_representative(sat_solver_t *solver, literal_t l) {
       l0 = solver->vertex_stack.data[i];
       act = lit_activity(solver, l0);
       if (act > max_act || (act == max_act && l0 < rep)) {
-	max_act = act;
-	rep = l0;
+        max_act = act;
+        rep = l0;
       }
     } while (l0 != l);
   }
@@ -4444,15 +4444,15 @@ static void process_scc(sat_solver_t *solver, literal_t l) {
       l0 = vector_pop(&solver->vertex_stack);
       solver->label[l0] = UINT32_MAX; // mark l0 as fully explored/SCC known
       if (lit_is_eliminated(solver, l0)) {
-	// both l0 and not(l0) are in the SCC
-	assert(base_subst(solver, l0) == not(rep));
-	unsat = true;
-	add_empty_clause(solver);
-	break;
+        // both l0 and not(l0) are in the SCC
+        assert(base_subst(solver, l0) == not(rep));
+        unsat = true;
+        add_empty_clause(solver);
+        break;
       }
       // record substitution: subst[l0] := rep
       if (l0 != rep) {
-	set_lit_subst(solver, l0, rep);
+        set_lit_subst(solver, l0, rep);
       }
     } while (l0 != l);
 
@@ -4487,13 +4487,13 @@ static bool next_successor(const sat_solver_t *solver, literal_t l0, uint32_t *i
        * all elements in w->data are clause indices
        */
       while (k < n) {
-	idx = w->data[k];
-	if (clause_is_live(&solver->pool, idx) && clause_length(&solver->pool, idx) == 2) {
-	  *i = k+1;
-	  *successor = other_watched_literal_of_clause(&solver->pool, idx, not(l0));
-	  return true;
-	}
-	k ++;
+        idx = w->data[k];
+        if (clause_is_live(&solver->pool, idx) && clause_length(&solver->pool, idx) == 2) {
+          *i = k+1;
+          *successor = other_watched_literal_of_clause(&solver->pool, idx, not(l0));
+          return true;
+        }
+        k ++;
       }
 
     } else {
@@ -4503,17 +4503,17 @@ static bool next_successor(const sat_solver_t *solver, literal_t l0, uint32_t *i
        * or a pair clause index + blocker
        */
       while (k < n) {
-	idx = w->data[k];
-	if (idx_is_literal(idx)) {
-	  *i = k+1;
-	  *successor = idx2lit(idx);
-	  return true;
-	} else if (clause_is_live(&solver->pool, idx) && clause_length(&solver->pool, idx) == 2) {
-	  *i = k+2;
-	  *successor = other_watched_literal_of_clause(&solver->pool, idx, not(l0));
-	  return true;
-	}
-	k += 2;
+        idx = w->data[k];
+        if (idx_is_literal(idx)) {
+          *i = k+1;
+          *successor = idx2lit(idx);
+          return true;
+        } else if (clause_is_live(&solver->pool, idx) && clause_length(&solver->pool, idx) == 2) {
+          *i = k+2;
+          *successor = other_watched_literal_of_clause(&solver->pool, idx, not(l0));
+          return true;
+        }
+        k += 2;
       }
     }
   }
@@ -4573,11 +4573,11 @@ static void dfs_explore(sat_solver_t *solver, literal_t l) {
       if (solver->label[x] == solver->visit[x]) {
         // x is the root of its SCC
         process_scc(solver, x);
-	if (solver->has_empty_clause) {
-	  // unsat detected
-	  reset_gstack(&solver->dfs_stack);
-	  break;
-	}
+        if (solver->has_empty_clause) {
+          // unsat detected
+          reset_gstack(&solver->dfs_stack);
+          break;
+        }
       }
       // pop x
       gstack_pop(&solver->dfs_stack);
@@ -4826,8 +4826,8 @@ static void collect_binary_clauses_of_watch(sat_solver_t *solver, watch_t *w, li
       l = idx2lit(k);
       assert(! lit_is_false(solver, l));
       if (l > l0 && lit_is_unassigned(solver, l)) {
-	vector_push(v, l0);
-	vector_push(v, l);
+        vector_push(v, l0);
+        vector_push(v, l);
       }
     } else {
       i += 2;
@@ -4853,14 +4853,14 @@ static void collect_binary_clauses_and_reset_watches(sat_solver_t *solver, vecto
     w = solver->watch[i];
     if (w != NULL) {
       if (lit_is_assigned(solver, i)) {
-	/*
-	 * Since boolean propagation is done, all binary
-	 * clauses of w are true at level 0.
-	 */
-	safe_free(w);
-	solver->watch[i] = NULL;
+        /*
+         * Since boolean propagation is done, all binary
+         * clauses of w are true at level 0.
+         */
+        safe_free(w);
+        solver->watch[i] = NULL;
       } else {
-	collect_binary_clauses_of_watch(solver, w, i, v);
+        collect_binary_clauses_of_watch(solver, w, i, v);
       }
     }
   }
@@ -5188,7 +5188,7 @@ static inline bool elim_heap_is_empty(const sat_solver_t *solver) {
 /*
  * Check whether x is in the heap
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static inline bool var_is_in_elim_heap(const sat_solver_t *solver, bvar_t x) {
   assert(x < solver->nvars);
   return solver->elim.elim_idx[x] >= 0;
@@ -5929,7 +5929,7 @@ static void process_lit_eq_ttbl(sat_solver_t *solver, gate_hmap_t *map, literal_
   if (l != null_literal) {
     if (l != l0) {
       if (solver->verbosity >= 4) {
-	fprintf(stderr, "c   %s: %"PRId32" == %"PRId32"\n", w, l, l0);
+        fprintf(stderr, "c   %s: %"PRId32" == %"PRId32"\n", w, l, l0);
       }
       literal_equiv(solver, l, l0);
     }
@@ -5999,12 +5999,12 @@ static void try_equivalent_vars(sat_solver_t *solver) {
     if (var_is_active(solver, i) && gate_for_bvar(solver, i, &tt)) {
       apply_subst_to_ttbl(solver, &tt);
       if (tt.nvars >= 2) {
-	l0 = full_var_subst(solver, i);
-	l0 = nsat_base_literal(solver, l0);
-	process_lit_eq_ttbl(solver, &test, l0, &tt, false, "gate equiv");
-	if (tt.nvars == 2) {
-	  try_rewrite_binary_gate(solver, l0, &tt, &test);
-	}
+        l0 = full_var_subst(solver, i);
+        l0 = nsat_base_literal(solver, l0);
+        process_lit_eq_ttbl(solver, &test, l0, &tt, false, "gate equiv");
+        if (tt.nvars == 2) {
+          try_rewrite_binary_gate(solver, l0, &tt, &test);
+        }
       }
     }
   }
@@ -6211,7 +6211,7 @@ static bool pp_scc_simplification(sat_solver_t *solver) {
  * SUBSUMPTION/STRENGTHENING
  */
 
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 /*
  * In preprocessing, all clauses and watch vectors should be sorted
  */
@@ -7082,7 +7082,7 @@ static void pp_reset_watch_vectors(sat_solver_t *solver) {
   }
 }
 
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 /*
  * Check that clause at index cidx has no assigned literals.
  */
@@ -7296,7 +7296,7 @@ static void record_binary_conflict(sat_solver_t *solver, literal_t l0, literal_t
 /*
  * For DEBUGGINGging: check that clause cidx is false
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static bool clause_is_false(const sat_solver_t *solver, cidx_t cidx) {
   literal_t *l;
   uint32_t i, n;
@@ -7575,10 +7575,10 @@ static void partial_restart(sat_solver_t *solver) {
 
       n = solver->decision_level;
       for (i=1; i<=n; i++) {
-	if (level_has_lower_activity(solver, ax, i)) {
-	  backtrack(solver, i-1);
-	  break;
-	}
+        if (level_has_lower_activity(solver, ax, i)) {
+          backtrack(solver, i-1);
+          break;
+        }
       }
     }
   }
@@ -8224,8 +8224,8 @@ static void try_scc_simplification(sat_solver_t *solver) {
     if (solver->units > units) {
       level0_propagation(solver);
       if (solver->has_empty_clause) {
-	fprintf(stderr, "c empty clause after substitution and propagation\n");
-	return;
+        fprintf(stderr, "c empty clause after substitution and propagation\n");
+        return;
       }
     }
   }
@@ -8747,7 +8747,7 @@ static void sat_search(sat_solver_t *solver) {
       if (need_reduce(solver)) {
         nsat_reduce_learned_clause_set(solver);
         check_watch_vectors(solver);
-	done_reduce(solver);
+        done_reduce(solver);
       }
 
       update_max_depth(solver);
@@ -8770,8 +8770,8 @@ static void sat_search(sat_solver_t *solver) {
 
 #if USE_DIVING
       if (! solver->diving) {
-	decay_clause_activities(solver);
-	decay_var_activities(&solver->heap);
+        decay_clause_activities(solver);
+        decay_var_activities(&solver->heap);
       }
 #else
       decay_clause_activities(solver);
@@ -8894,7 +8894,7 @@ solver_status_t nsat_solve(sat_solver_t *solver) {
 #if USE_DIVING
     if (need_simplify(solver)) {
       if (solver->diving) {
-	done_diving(solver);
+        done_diving(solver);
       }
       full_restart(solver);
       done_restart(solver);
@@ -8907,8 +8907,8 @@ solver_status_t nsat_solve(sat_solver_t *solver) {
     } else if (need_check(solver)) {
       //      report(solver, "chk");
       if (switch_to_diving(solver)) {
-	full_restart(solver);
-	report(solver, "dive");
+        full_restart(solver);
+        report(solver, "dive");
       }
     } else {
       partial_restart(solver);
@@ -9048,14 +9048,14 @@ static void show_subst(const sat_solver_t *solver) {
       sign = is_pos(l) ? ' ' : '~';
       l0 = nsat_base_literal(solver, l);
       if (l0 != pos_lit(i)) {
-	if (l0 == true_literal) {
-	  fprintf(stderr, "c   subst(%"PRId32") = %c%"PRId32" --> true\n", i, sign, x);
-	} else if (l0 == false_literal) {
-	  fprintf(stderr, "c   subst(%"PRId32") = %c%"PRId32" --> false\n", i, sign, x);
-	} else {
-	  assert(l0 == l);
-	  fprintf(stderr, "c   subst(%"PRId32") = %c%"PRId32"\n", i, sign, x);
-	}
+        if (l0 == true_literal) {
+          fprintf(stderr, "c   subst(%"PRId32") = %c%"PRId32" --> true\n", i, sign, x);
+        } else if (l0 == false_literal) {
+          fprintf(stderr, "c   subst(%"PRId32") = %c%"PRId32" --> false\n", i, sign, x);
+        } else {
+          assert(l0 == l);
+          fprintf(stderr, "c   subst(%"PRId32") = %c%"PRId32"\n", i, sign, x);
+        }
       }
     }
   }
@@ -9085,10 +9085,10 @@ void show_all_var_defs(const sat_solver_t *solver) {
       g = bgate(&solver->gates, j);
       l = gate_hmap_find(&test, g);
       if (l == null_literal) {
-	gate_hmap_add(&test, g, pos_lit(i));
+        gate_hmap_add(&test, g, pos_lit(i));
       } else {
-	fprintf(stderr, "c gate equiv: %"PRId32" == %"PRId32"\n", l, pos_lit(i));
-	equiv ++;
+        fprintf(stderr, "c gate equiv: %"PRId32" == %"PRId32"\n", l, pos_lit(i));
+        equiv ++;
       }
     }
   }
@@ -9180,10 +9180,10 @@ static void show_watch_vector(FILE *f, const sat_solver_t *solver, literal_t l) 
     } else if (solver->preprocess) {
       // all elements in w->data are clause indices
       while (i<n) {
-	k = w->data[i];
-	assert(idx_is_clause(k));
-	fprintf(f, " cl(%"PRIu32")", k);
-	i ++;
+        k = w->data[i];
+        assert(idx_is_clause(k));
+        fprintf(f, " cl(%"PRIu32")", k);
+        i ++;
       }
       fprintf(f, "\n");
     } else {

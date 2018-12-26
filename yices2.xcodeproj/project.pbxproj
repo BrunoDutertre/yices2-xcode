@@ -3930,7 +3930,6 @@
 		15C69C8121CE93E700CB1C92 /* 0be8401c.smt2 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 0be8401c.smt2; sourceTree = "<group>"; };
 		15C69C8221CE93E700CB1C92 /* 546617b0.smt2 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 546617b0.smt2; sourceTree = "<group>"; };
 		15C69C8321CE93E700CB1C92 /* 91bbcac0.smt2.gold */ = {isa = PBXFileReference; lastKnownFileType = text; path = 91bbcac0.smt2.gold; sourceTree = "<group>"; };
-		15FD8B0021CE97600037D8A4 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3991,7 +3990,6 @@
 				15C6925121CE8FF100CB1C92 /* Makefile */,
 				15C6924F21CE8FDC00CB1C92 /* Makefile.build */,
 				1512F68321CE8C2A00C03CC3 /* src */,
-				15FD8AFF21CE97600037D8A4 /* edit */,
 				1589C3C421CEE00200201787 /* Frameworks */,
 				15883E0021D10E40005CC0EB /* yices_sat */,
 				15883E0C21D10E99005CC0EB /* yices_sat_new */,
@@ -8662,14 +8660,6 @@
 			path = QF_UF;
 			sourceTree = "<group>";
 		};
-		15FD8AFF21CE97600037D8A4 /* edit */ = {
-			isa = PBXGroup;
-			children = (
-				15FD8B0021CE97600037D8A4 /* main.c */,
-			);
-			path = edit;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -9946,7 +9936,12 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"HAVE_MCSAT=1",
+					"MACOSX=1",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -9959,7 +9954,12 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"HAVE_MCSAT=1",
+					"NDEBUG=1",
+					"MACOSX=1",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -9973,6 +9973,11 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"HAVE_MCSAT=1",
+					"MACOSX=1",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -9986,6 +9991,11 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"HAVE_MCSAT=1",
+					"MACOSX=1",
+					"NDEBUG=1",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

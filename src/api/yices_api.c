@@ -2270,10 +2270,10 @@ static bool check_all_distinct(term_table_t *terms, uint32_t n, const term_t *va
 
     for (i=1; i<n; i++) {
       if (a[i-1] == a[i]) {
-	error.code = MDL_DUPLICATE_VAR;
-	error.term1 = a[i];
-	result = false;
-	break;
+        error.code = MDL_DUPLICATE_VAR;
+        error.term1 = a[i];
+        result = false;
+        break;
       }
     }
 

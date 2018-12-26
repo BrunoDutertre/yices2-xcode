@@ -795,8 +795,8 @@ static bool non_integer_polynomial(term_table_t *tbl, polynomial_t *p) {
     // p has a non-integer constant term
     for (i=1; i<n; i++) {
       if (!is_integer_term(tbl, p->mono[i].var) ||
-	  !q_is_integer(&p->mono[i].coeff)) {
-	return false; // not an integer monomial 
+          !q_is_integer(&p->mono[i].coeff)) {
+        return false; // not an integer monomial
       }
     }
     return true;
@@ -2593,18 +2593,18 @@ bool incompatible_bitvector_literals(term_table_t *tbl, term_t t1, term_t t2) {
     result = false;
 
     if (is_pos_term(t1) && is_pos_term(t2) &&
-	term_kind(tbl, t1) == BV_EQ_ATOM && term_kind(tbl, t2) == BV_EQ_ATOM) {
+        term_kind(tbl, t1) == BV_EQ_ATOM && term_kind(tbl, t2) == BV_EQ_ATOM) {
       eq1 = bveq_atom_desc(tbl, t1);
       eq2 = bveq_atom_desc(tbl, t2);
       assert(eq1->arity == 2 && eq2->arity == 2);
 
       for (i=0; i<2; i++) {
-	for (j=0; j<2; j++) {
-	  if (eq1->arg[i] == eq2->arg[j]) {
-	    result = disequal_bv_terms(tbl, eq1->arg[1 - i], eq2->arg[1 - j]);
-	    goto done;
-	  }
-	}
+        for (j=0; j<2; j++) {
+          if (eq1->arg[i] == eq2->arg[j]) {
+            result = disequal_bv_terms(tbl, eq1->arg[1 - i], eq2->arg[1 - j]);
+            goto done;
+          }
+        }
       }
     }
   }
@@ -2641,9 +2641,9 @@ bool incompatible_boolean_terms(term_table_t *tbl, term_t t1, term_t t2) {
 
     for (i=0; i<2; i++) {
       for (j=0; j<2; j++) {
-	if (eq1->arg[i] == eq2->arg[j]) {
-	  return disequal_bv_terms(tbl, eq1->arg[1 - i], eq2->arg[1 - j]);
-	}
+        if (eq1->arg[i] == eq2->arg[j]) {
+          return disequal_bv_terms(tbl, eq1->arg[1 - i], eq2->arg[1 - j]);
+        }
       }
     }
   }
@@ -2705,14 +2705,14 @@ bool is_term_eq_const(term_table_t *tbl, term_t t, term_t *x, term_t *a) {
       eq = composite_term_desc(tbl, t);
       assert(eq->arity == 2);
       if (is_const_term(tbl, eq->arg[0])) {
-	*a = eq->arg[0];
-	*x = eq->arg[1];
-	return true;
+        *a = eq->arg[0];
+        *x = eq->arg[1];
+        return true;
       }
       if (is_const_term(tbl, eq->arg[1])) {
-	*x = eq->arg[0];
-	*a = eq->arg[1];
-	return true;
+        *x = eq->arg[0];
+        *a = eq->arg[1];
+        return true;
       }
       break;
 

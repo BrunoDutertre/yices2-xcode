@@ -138,8 +138,8 @@ void writer_putc(writer_t *writer, char c) {
     if (!writer->print_failed) {
       x = fputc(c, writer->output.stream);
       if (x == EOF) {
-	writer->print_failed = true;
-	writer->print_errno = errno;
+        writer->print_failed = true;
+        writer->print_errno = errno;
       }
     }
   } else {
@@ -154,8 +154,8 @@ void writer_puts(writer_t *writer, const char *s) {
     if (!writer->print_failed) {
       x = fputs(s, writer->output.stream);
       if (x == EOF) {
-	writer->print_failed = true;
-	writer->print_errno = errno;      
+        writer->print_failed = true;
+        writer->print_errno = errno;
       }
     }
   } else {
@@ -170,8 +170,8 @@ void writer_flush(writer_t *writer) {
     if (!writer->print_failed) {
       x = fflush(writer->output.stream);
       if (x == EOF) {
-	writer->print_failed = true;
-	writer->print_errno = errno;
+        writer->print_failed = true;
+        writer->print_errno = errno;
       }
     }
   }

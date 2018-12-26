@@ -405,7 +405,7 @@ static  void literal_vector_pop(literal_t *v) {
 /*
  * Last element of vector v (used in assert)
  */
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static inline literal_t last_lv_elem(literal_t *v) {
   assert(v != NULL && get_lv_size(v) > 0);
   return v[get_lv_size(v) - 1];
@@ -1386,12 +1386,12 @@ static void test_eq_clause(smt_core_t *s, const char *msg, uint32_t n, literal_t
 
     for (i=0; i<n; i++) {
       if (get_booleq(s->etable, not(a[i]), &u, &v)) {
-	print_literal(stdout, not(a[i]));
-	printf(" := (eq ");
-	print_literal(stdout, u);
-	printf(" ");
-	print_literal(stdout, v);
-	printf(")\n");
+        print_literal(stdout, not(a[i]));
+        printf(" := (eq ");
+        print_literal(stdout, u);
+        printf(" ");
+        print_literal(stdout, v);
+        printf(")\n");
       }
     }
     printf("\n");
@@ -1422,12 +1422,12 @@ static void test_eq_conflict(smt_core_t *s) {
     c = s->conflict;
     while (*c >= 0) {
       if (get_booleq(s->etable, not(*c), &u, &v)) {
-	print_literal(stdout, not(*c));
-	printf(" := (eq ");
-	print_literal(stdout, u);
-	printf(" ");
-	print_literal(stdout, v);
-	printf(")\n");
+        print_literal(stdout, not(*c));
+        printf(" := (eq ");
+        print_literal(stdout, u);
+        printf(" ");
+        print_literal(stdout, v);
+        printf(")\n");
       }
       c ++;
     }
@@ -2645,7 +2645,7 @@ static bool propagation_via_watched_list(smt_core_t *s, uint8_t *val, literal_t 
         /*
          * All literals of cl, except possibly l1, are false
          */
-	if (bval_is_undef(v1)) {
+        if (bval_is_undef(v1)) {
           // l1 is implied
           implied_literal(s, l1, mk_clause_antecedent(cl, i^1));
 
@@ -2805,7 +2805,7 @@ static inline bool is_var_unmarked(smt_core_t *s, bvar_t x) {
   return ! tst_bit(s->mark, x);
 }
 
-#if DEBUGGING || !defined(NDEBUGGING)
+#if DEBUGGING || !defined(NDEBUG)
 static inline bool is_var_marked(smt_core_t *s, bvar_t x) {
   return tst_bit(s->mark, x);
 }
@@ -3632,7 +3632,7 @@ static void resolve_conflict(smt_core_t *s) {
  *  ASSUMPTIONS AND UNSAT CORES  *
  ********************************/
 
-#ifndef NDEBUGGING
+#ifndef NDEBUG
 static bool good_assumption_index(smt_core_t *s) {
   uint32_t i;
   literal_t l;
@@ -4979,7 +4979,7 @@ static void simplify_binary_vectors(smt_core_t *s) {
       n = get_lv_size(v0);
       for (j=0; j<n; j++) {
         l1 = v0[j];
-	if (literal_is_unassigned(s, l1)) {
+        if (literal_is_unassigned(s, l1)) {
           // sol->bin[l1] is non null.
           assert(s->bin[l1] != NULL);
           cleanup_binary_clause_vector(s, s->bin[l1]);
@@ -6170,16 +6170,16 @@ void smt_partial_restart(smt_core_t *s) {
        */
       n = s->decision_level;
       for (i=s->base_level+1; i<=n; i++) {
-	k = s->stack.level_index[i];
-	x = var_of(s->stack.lit[k]);  // decision variable for level i
-	assert(bvar_is_assigned(s, x) &&
-	       s->level[x] == i &&
-	       s->antecedent[x] == mk_literal_antecedent(null_literal));
+        k = s->stack.level_index[i];
+        x = var_of(s->stack.lit[k]);  // decision variable for level i
+        assert(bvar_is_assigned(s, x) &&
+              s->level[x] == i &&
+              s->antecedent[x] == mk_literal_antecedent(null_literal));
 
-	if (s->heap.activity[x] < ax) {
-	  partial_restart(s, i - 1);
-	  break;
-	}
+        if (s->heap.activity[x] < ax) {
+          partial_restart(s, i - 1);
+          break;
+        }
       }
     }
   }
@@ -6215,10 +6215,10 @@ void smt_partial_restart_var(smt_core_t *s) {
 
       n = s->decision_level;
       for (i=s->base_level+1; i<=n; i++) {
-	if (level_has_lower_activity(s, ax, i)) {
-	  partial_restart(s, i - 1);
-	  break;
-	}
+        if (level_has_lower_activity(s, ax, i)) {
+          partial_restart(s, i - 1);
+          break;
+        }
       }
     }
   }
@@ -6246,8 +6246,8 @@ static bool all_binary_clauses_are_true(smt_core_t *s) {
       if (v != NULL) {
         // this loop terminates with l<0 (end-marker) if all clauses {l0, l} are true
         do {
-	  l = *v ++;
-	} while (l >= 0 && literal_value(s, l) == VAL_TRUE);
+          l = *v ++;
+        } while (l >= 0 && literal_value(s, l) == VAL_TRUE);
         if (l >= 0) return false;
       }
     }
@@ -6415,9 +6415,9 @@ static void collect_vars_in_binary_clauses(free_bool_vars_t *fv, const smt_core_
     v = s->bin[l0];
     if (v != NULL) {
       for (;;) {
-	l = *v ++;
-	if (l < 0) break;
-	mark_lit_not_free(fv, l);
+        l = *v ++;
+        if (l < 0) break;
+        mark_lit_not_free(fv, l);
       }
     }
   }

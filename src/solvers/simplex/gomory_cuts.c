@@ -208,8 +208,8 @@ bool make_gomory_cut(gomory_vector_t *v, poly_buffer_t *buffer) {
       // if x_i has a lower bound and f_i > 1 - f then c_i := f_i - 1
       // if x_i has an upper bound and f_i > f then c_i := f_i - 1
       if ((gomory_bound_is_lb(v, i) && q_gt(f_i, e))  ||
-	  (gomory_bound_is_ub(v, i) && q_gt(f_i, f))) {
-	q_sub_one(c_i);
+          (gomory_bound_is_ub(v, i) && q_gt(f_i, f))) {
+        q_sub_one(c_i);
       }
     } else {
       q_set(c_i, v->coeff + i);
@@ -218,19 +218,19 @@ bool make_gomory_cut(gomory_vector_t *v, poly_buffer_t *buffer) {
     if (gomory_bound_is_lb(v, i)) {
       // c_i * (x_i - l_i) with x_i >= l_i
       if (q_is_pos(c_i)) {
-	q_div(c_i, e);   // c_i/(1-f)
+        q_div(c_i, e);   // c_i/(1-f)
       } else {
-	q_neg(c_i);
-	q_div(c_i, f);  // -c_i/f
+        q_neg(c_i);
+        q_div(c_i, f);  // -c_i/f
       }
       assert(q_is_pos(c_i));
     } else {
       // c_i * (x_i - u_i) with x_i <= u_i
       if (q_is_pos(c_i)) {
-	q_neg(c_i);
-	q_div(c_i, f);   // -c_i/f
+        q_neg(c_i);
+        q_div(c_i, f);   // -c_i/f
       } else {
-	q_div(c_i, e);   //  c_i/(1-f)
+        q_div(c_i, e);   //  c_i/(1-f)
       }
       assert(q_is_neg(c_i));
     }

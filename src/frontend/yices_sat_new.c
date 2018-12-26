@@ -267,17 +267,17 @@ static int build_instance(const char *filename, bool pp) {
     } else {
       l_idx = 0;
       for (;;) {
-	literal = read_literal(&reader, nvars);
-	if (literal < 0) break;
-	if (l_idx >= (int)buffer_size) expand_buffer();
-	clause[l_idx] = literal;
-	l_idx ++;
+        literal = read_literal(&reader, nvars);
+        if (literal < 0) break;
+        if (l_idx >= (int)buffer_size) expand_buffer();
+        clause[l_idx] = literal;
+        l_idx ++;
       }
 
       if (literal != END_OF_CLAUSE) {
-	fprintf(stderr, "file %s: line %"PRIu32": invalid format\n", filename, reader_line(&reader));
-	close_reader(&reader);
-	return FORMAT_ERROR;
+        fprintf(stderr, "file %s: line %"PRIu32": invalid format\n", filename, reader_line(&reader));
+        close_reader(&reader);
+        return FORMAT_ERROR;
       }
 
       nsat_solver_simplify_and_add_clause(&solver, l_idx, clause);
@@ -360,21 +360,21 @@ static void check_model(const char *filename) {
     } else {
       l_idx = 0;
       for (;;) {
-	literal = read_literal(&reader, nvars);
-	if (literal < 0) break;
-	if (l_idx >= (int)buffer_size) expand_buffer();
-	clause[l_idx] = literal;
-	l_idx ++;
+        literal = read_literal(&reader, nvars);
+        if (literal < 0) break;
+        if (l_idx >= (int)buffer_size) expand_buffer();
+        clause[l_idx] = literal;
+        l_idx ++;
       }
 
       if (literal != END_OF_CLAUSE) {
-	fprintf(stderr, "error in check model: file %s: line %"PRIu32": invalid format\n", filename, reader_line(&reader));
-	goto done;
+        fprintf(stderr, "error in check model: file %s: line %"PRIu32": invalid format\n", filename, reader_line(&reader));
+        goto done;
       }
 
       if (!clause_is_true(l_idx, clause)) {
-	fprintf(stderr, "error in check model: clause %"PRIu32" is false (line %"PRIu32")\n", c_idx, reader_line(&reader));
-	goto done;
+        fprintf(stderr, "error in check model: clause %"PRIu32" is false (line %"PRIu32")\n", c_idx, reader_line(&reader));
+        goto done;
       }
       c_idx ++;
     }
@@ -630,8 +630,8 @@ static void parse_command_line(int argc, char *argv[]) {
         break;
 
       case preprocess_flag:
-	preprocess = true;
-	break;
+        preprocess = true;
+        break;
 
       case seed_opt:
         seed_given = true;
@@ -639,165 +639,165 @@ static void parse_command_line(int argc, char *argv[]) {
         break;
 
       case stats_flag:
-	stats = true;
-	break;
+        stats = true;
+        break;
 
       case var_decay_opt:
-	if (elem.d_value < 0 || elem.d_value > 1) {
-	  fprintf(stderr, "var-decay must be between 0 and 1.\n");
-	  goto bad_usage;
-	}
-	var_decay_given = true;
-	var_decay = elem.d_value;
-	break;
+        if (elem.d_value < 0 || elem.d_value > 1) {
+          fprintf(stderr, "var-decay must be between 0 and 1.\n");
+          goto bad_usage;
+        }
+        var_decay_given = true;
+        var_decay = elem.d_value;
+        break;
 
       case clause_decay_opt:
-	if (elem.d_value < 0 || elem.d_value > 1) {
-	  fprintf(stderr, "clause-decay must be between 0 and 1.\n");
-	  goto bad_usage;
-	}
-	clause_decay_given = true;
-	clause_decay = elem.d_value;
-	break;
+        if (elem.d_value < 0 || elem.d_value > 1) {
+          fprintf(stderr, "clause-decay must be between 0 and 1.\n");
+          goto bad_usage;
+        }
+        clause_decay_given = true;
+        clause_decay = elem.d_value;
+        break;
 
       case randomness_opt:
-	if (elem.d_value < 0 || elem.d_value > 1) {
-	  fprintf(stderr, "randomness must be between 0 and 1.\n");
-	  goto bad_usage;
-	}
-	randomness_given = true;
-	randomness = elem.d_value;
-	break;
+        if (elem.d_value < 0 || elem.d_value > 1) {
+          fprintf(stderr, "randomness must be between 0 and 1.\n");
+          goto bad_usage;
+        }
+        randomness_given = true;
+        randomness = elem.d_value;
+        break;
 
       case stack_threshold_opt:
-	if (elem.i_value < 0) {
-	  fprintf(stderr, "stack-threshold can't be negative.\n");
-	  goto bad_usage;
-	}
-	stack_threshold_given = true;
-	stack_threshold = elem.i_value;
-	break;
+        if (elem.i_value < 0) {
+          fprintf(stderr, "stack-threshold can't be negative.\n");
+          goto bad_usage;
+        }
+        stack_threshold_given = true;
+        stack_threshold = elem.i_value;
+        break;
 
       case keep_lbd_opt:
-	if (elem.i_value < 0) {
-	  fprintf(stderr, "keep-lbd can't be negative.\n");
-	  goto bad_usage;
-	}
-	keep_lbd_given = true;
-	keep_lbd = elem.i_value;
-	break;
+        if (elem.i_value < 0) {
+          fprintf(stderr, "keep-lbd can't be negative.\n");
+          goto bad_usage;
+        }
+        keep_lbd_given = true;
+        keep_lbd = elem.i_value;
+        break;
 
       case reduce_fraction_opt:
-	if (elem.i_value < 0 || elem.i_value > 32) {
-	  fprintf(stderr, "reduce-fraction must be between 0 and 32.\n");
-	  goto bad_usage;
-	}
-	reduce_fraction_given = true;
-	reduce_fraction = elem.i_value;
-	break;
+        if (elem.i_value < 0 || elem.i_value > 32) {
+          fprintf(stderr, "reduce-fraction must be between 0 and 32.\n");
+          goto bad_usage;
+        }
+        reduce_fraction_given = true;
+        reduce_fraction = elem.i_value;
+        break;
 
       case reduce_interval_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "reduce-interval must be positive.\n");
-	  goto bad_usage;
-	}
-	reduce_interval_given = true;
-	reduce_interval = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "reduce-interval must be positive.\n");
+          goto bad_usage;
+        }
+        reduce_interval_given = true;
+        reduce_interval = elem.i_value;
+        break;
 
       case reduce_delta_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "reduce-deltal must be positive.\n");
-	  goto bad_usage;
-	}
-	reduce_delta_given = true;
-	reduce_delta = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "reduce-deltal must be positive.\n");
+          goto bad_usage;
+        }
+        reduce_delta_given = true;
+        reduce_delta = elem.i_value;
+        break;
 
       case restart_interval_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "restart-interval must be positive.\n");
-	  goto bad_usage;
-	}
-	restart_interval_given = true;
-	restart_interval = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "restart-interval must be positive.\n");
+          goto bad_usage;
+        }
+        restart_interval_given = true;
+        restart_interval = elem.i_value;
+        break;
 
       case subsume_skip_opt:
-	if (elem.i_value < 0) {
-	  fprintf(stderr, "subsume-skip can't be negative.\n");
-	  goto bad_usage;
-	}
-	subsume_skip_given = true;
-	subsume_skip = elem.i_value;
-	break;
+        if (elem.i_value < 0) {
+          fprintf(stderr, "subsume-skip can't be negative.\n");
+          goto bad_usage;
+        }
+        subsume_skip_given = true;
+        subsume_skip = elem.i_value;
+        break;
 
       case var_elim_skip_opt:
-	if (elem.i_value < 0) {
-	  fprintf(stderr, "var-elim-skip can't be negative\n");
-	  goto bad_usage;
-	}
-	var_elim_skip_given = true;
-	var_elim_skip = elem.i_value;
-	break;
+        if (elem.i_value < 0) {
+          fprintf(stderr, "var-elim-skip can't be negative\n");
+          goto bad_usage;
+        }
+        var_elim_skip_given = true;
+        var_elim_skip = elem.i_value;
+        break;
 
       case res_clause_limit_opt:
-	if (elem.i_value < 0) {
-	  fprintf(stderr, "res-clause-limit can't be negative\n");
-	  goto bad_usage;
-	}
-	res_clause_limit_given = true;
-	res_clause_limit = elem.i_value;
-	break;
+        if (elem.i_value < 0) {
+          fprintf(stderr, "res-clause-limit can't be negative\n");
+          goto bad_usage;
+        }
+        res_clause_limit_given = true;
+        res_clause_limit = elem.i_value;
+        break;
 
       case simplify_interval_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "simplify-interval must be positive.\n");
-	  goto bad_usage;
-	}
-	simplify_interval_given = true;
-	simplify_interval = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "simplify-interval must be positive.\n");
+          goto bad_usage;
+        }
+        simplify_interval_given = true;
+        simplify_interval = elem.i_value;
+        break;
 
       case simplify_bin_delta_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "simplify-bin-delta must be positive.\n");
-	  goto bad_usage;
-	}
-	simplify_bin_delta_given = true;
-	simplify_bin_delta = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "simplify-bin-delta must be positive.\n");
+          goto bad_usage;
+        }
+        simplify_bin_delta_given = true;
+        simplify_bin_delta = elem.i_value;
+        break;
 
       case search_period_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "search-period must be positive.\n");
-	  goto bad_usage;
-	}
-	search_period_given = true;
-	search_period = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "search-period must be positive.\n");
+          goto bad_usage;
+        }
+        search_period_given = true;
+        search_period = elem.i_value;
+        break;
 
       case search_counter_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "search-counter must be positive.\n");
-	  goto bad_usage;
-	}
-	search_counter_given = true;
-	search_counter = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "search-counter must be positive.\n");
+          goto bad_usage;
+        }
+        search_counter_given = true;
+        search_counter = elem.i_value;
+        break;
 
       case dive_budget_opt:
-	if (elem.i_value <= 0) {
-	  fprintf(stderr, "dive-budget must be positive.\n");
-	  goto bad_usage;
-	}
-	dive_budget_given = true;
-	dive_budget = elem.i_value;
-	break;
+        if (elem.i_value <= 0) {
+          fprintf(stderr, "dive-budget must be positive.\n");
+          goto bad_usage;
+        }
+        dive_budget_given = true;
+        dive_budget = elem.i_value;
+        break;
 
       case data_flag:
-	data = true;
-	break;
+          data = true;
+          break;
       }
       break;
 
@@ -1064,14 +1064,14 @@ static void print_model(void) {
     k = 0;
     for (v=1; v<=nvars; v++) {
       if (var_is_assigned(&solver, v)) {
-	l = var_is_true(&solver, v) ? v : -v;
-	if (k == 0) printf("v");
-	printf(" %d", l);
-	k ++;
-	if (k >= 10) {
-	  printf("\n");
-	  k = 0;
-	}
+        l = var_is_true(&solver, v) ? v : -v;
+        if (k == 0) printf("v");
+        printf(" %d", l);
+        k ++;
+        if (k >= 10) {
+          printf("\n");
+          k = 0;
+        }
       }
     }
     printf("\nv 0\n");

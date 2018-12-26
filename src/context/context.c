@@ -369,20 +369,20 @@ static occ_t map_conditional_to_eterm(context_t *ctx, conditional_t *c, type_t t
        */
       v = internalize_to_eterm(ctx, c->pair[i].val);
       if (all_false) {
-	// all previous conditions a[0 ... i-1] are false
-	assert(u == null_occurrence);
-	u = v;
+        // all previous conditions a[0 ... i-1] are false
+        assert(u == null_occurrence);
+        u = v;
       } else {
-	// we assert (u == v) as a top-level equality
-	egraph_assert_eq_axiom(ctx->egraph, u, v);
+        // we assert (u == v) as a top-level equality
+        egraph_assert_eq_axiom(ctx->egraph, u, v);
       }
       goto done;
     }
     if (a[i] != false_literal) {
       if (all_false) {
-	assert(u == null_occurrence);
-	u = pos_occ(make_egraph_variable(ctx, tau));
-	all_false = false;
+        assert(u == null_occurrence);
+        u = pos_occ(make_egraph_variable(ctx, tau));
+        all_false = false;
       }
       // one clause for a[i] => (u = v[i])
       v = internalize_to_eterm(ctx, c->pair[i].val);
@@ -467,9 +467,9 @@ static occ_t flatten_ite_to_eterm(context_t *ctx, composite_term_t *ite, literal
      *   exponentially.
      */
     if (is_pos_term(x) &&
-	is_ite_term(ctx->terms, x) &&
-	!intern_tbl_root_is_mapped(&ctx->intern, x) &&
-	term_is_not_shared(&ctx->sharing, x)) {
+        is_ite_term(ctx->terms, x) &&
+        !intern_tbl_root_is_mapped(&ctx->intern, x) &&
+        term_is_not_shared(&ctx->sharing, x)) {
       /*
        * x is of the form (ite c a b) and not internalized already,
        * we push (ite c a b) on the flattener.
@@ -1045,19 +1045,19 @@ static thvar_t map_conditional_to_arith(context_t *ctx, conditional_t *c, bool i
        */
       x = internalize_to_arith(ctx, c->pair[i].val);
       if (all_false) {
-	assert(v == null_thvar);
-	v = x;
+        assert(v == null_thvar);
+        v = x;
       } else {
-	// assert (v == x) in the arithmetic solver
-	ctx->arith.assert_vareq_axiom(ctx->arith_solver, v, x, true);
+        // assert (v == x) in the arithmetic solver
+        ctx->arith.assert_vareq_axiom(ctx->arith_solver, v, x, true);
       }
       goto done;
     }
     if (a[i] != false_literal) {
       if (all_false) {
-	assert(v == null_thvar);
-	v = ctx->arith.create_var(ctx->arith_solver, is_int);
-	all_false = false;
+        assert(v == null_thvar);
+        v = ctx->arith.create_var(ctx->arith_solver, is_int);
+        all_false = false;
       }
       // clause for a[i] => (v = c->pair[i].val)
       x = internalize_to_arith(ctx, c->pair[i].val);
@@ -1121,9 +1121,9 @@ static thvar_t flatten_ite_to_arith(context_t *ctx, composite_term_t *ite, liter
      * shared.
      */
     if (is_pos_term(x) &&
-	is_ite_term(ctx->terms, x) &&
-	!intern_tbl_root_is_mapped(&ctx->intern, x) &&
-	term_is_not_shared(&ctx->sharing, x)) {
+        is_ite_term(ctx->terms, x) &&
+        !intern_tbl_root_is_mapped(&ctx->intern, x) &&
+        term_is_not_shared(&ctx->sharing, x)) {
       ite = ite_term_desc(ctx->terms, x);
       assert(ite->arity == 3);
       c = internalize_to_literal(ctx, ite->arg[0]);
@@ -2486,21 +2486,21 @@ static occ_t internalize_to_eterm(context_t *ctx, term_t t) {
         break;
 
       case ARITH_FLOOR:
-	assert(is_integer_type(tau));
-	x = map_floor_to_arith(ctx, arith_floor_arg(terms, r));
-	u = translate_arithvar_to_eterm(ctx, x);
-	break;
+        assert(is_integer_type(tau));
+        x = map_floor_to_arith(ctx, arith_floor_arg(terms, r));
+        u = translate_arithvar_to_eterm(ctx, x);
+        break;
 
       case ARITH_CEIL:
-	assert(is_integer_type(tau));
-	x = map_ceil_to_arith(ctx, arith_ceil_arg(terms, r));
-	u = translate_arithvar_to_eterm(ctx, x);
-	break;
+        assert(is_integer_type(tau));
+        x = map_ceil_to_arith(ctx, arith_ceil_arg(terms, r));
+        u = translate_arithvar_to_eterm(ctx, x);
+        break;
 
       case ARITH_ABS:
-	x = map_abs_to_arith(ctx, arith_abs_arg(terms, r));
-	u = translate_arithvar_to_eterm(ctx, x);
-	break;
+        x = map_abs_to_arith(ctx, arith_abs_arg(terms, r));
+        u = translate_arithvar_to_eterm(ctx, x);
+        break;
 
       case ITE_TERM:
       case ITE_SPECIAL:
@@ -2512,21 +2512,21 @@ static occ_t internalize_to_eterm(context_t *ctx, term_t t) {
         break;
 
       case ARITH_RDIV:
-	assert(is_real_type(tau));
-	x = map_rdiv_to_arith(ctx, arith_rdiv_term_desc(terms, r));
-	u = translate_arithvar_to_eterm(ctx, x);
-	break;
+        assert(is_real_type(tau));
+        x = map_rdiv_to_arith(ctx, arith_rdiv_term_desc(terms, r));
+        u = translate_arithvar_to_eterm(ctx, x);
+        break;
 
       case ARITH_IDIV:
-	assert(is_integer_type(tau));
-	x = map_idiv_to_arith(ctx, arith_idiv_term_desc(terms, r));
-	u = translate_arithvar_to_eterm(ctx, x); // (div t u) has type int
-	break;
+        assert(is_integer_type(tau));
+        x = map_idiv_to_arith(ctx, arith_idiv_term_desc(terms, r));
+        u = translate_arithvar_to_eterm(ctx, x); // (div t u) has type int
+        break;
 
       case ARITH_MOD:
-	x = map_mod_to_arith(ctx, arith_mod_term_desc(terms, r));
-	u = translate_arithvar_to_eterm(ctx, x);
-	break;
+        x = map_mod_to_arith(ctx, arith_mod_term_desc(terms, r));
+        u = translate_arithvar_to_eterm(ctx, x);
+        break;
 
       case TUPLE_TERM:
         u = map_tuple_to_eterm(ctx, tuple_term_desc(terms, r), tau);
@@ -2734,7 +2734,7 @@ static thvar_t internalize_to_arith(context_t *ctx, term_t t) {
       x = map_ite_to_arith(ctx, ite_term_desc(terms, r), is_integer_root(ctx, r));
       intern_tbl_map_root(&ctx->intern, r, thvar2code(x));
       if (context_ite_bounds_enabled(ctx)) {
-	assert_ite_bounds(ctx, r, x);
+        assert_ite_bounds(ctx, r, x);
       }
       break;
 
@@ -4206,8 +4206,8 @@ static void assert_toplevel_or(context_t *ctx, composite_term_t *or, bool tt) {
       // if v contains a true_term, ignore the clause
       n = v->size;
       if (disjunct_is_true(ctx, v->data, n)) {
-	ivector_reset(v);
-	return;
+        ivector_reset(v);
+        return;
       }
 
       // make a copy of v
@@ -4228,7 +4228,7 @@ static void assert_toplevel_or(context_t *ctx, composite_term_t *or, bool tt) {
        */
       n = or->arity;
       if (disjunct_is_true(ctx, or->arg, n)) {
-	return;
+        return;
       }
 
       a = alloc_istack_array(&ctx->istack, n);
@@ -5632,16 +5632,16 @@ static int32_t context_process_assertions(context_t *ctx, uint32_t n, const term
        * up in subst_eqs after the call to process_aux_eqs.
        */
       if (context_breaksym_enabled(ctx)) {
-	break_uf_symmetries(ctx);
+        break_uf_symmetries(ctx);
       }
       if (context_eq_abstraction_enabled(ctx)) {
         analyze_uf(ctx);
       }
       if (ctx->aux_eqs.size > 0) {
-	process_aux_eqs(ctx);
+        process_aux_eqs(ctx);
       }
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       break;
 
@@ -5651,7 +5651,7 @@ static int32_t context_process_assertions(context_t *ctx, uint32_t n, const term
        * (otherwise analyze_diff_logic may give wrong results).
        */
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       analyze_diff_logic(ctx, true);
       create_auto_idl_solver(ctx);
@@ -5663,7 +5663,7 @@ static int32_t context_process_assertions(context_t *ctx, uint32_t n, const term
        */
       trace_printf(ctx->trace, 6, "(auto-idl solver)\n");
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       analyze_diff_logic(ctx, false);
       create_auto_rdl_solver(ctx);
@@ -5677,16 +5677,16 @@ static int32_t context_process_assertions(context_t *ctx, uint32_t n, const term
       trace_printf(ctx->trace, 6, "(Simplex solver)\n");
       // more optional processing
       if (context_cond_def_preprocessing_enabled(ctx)) {
-	process_conditional_definitions(ctx);
-	if (ctx->aux_eqs.size > 0) {
-	  process_aux_eqs(ctx);
-	}
-	if (ctx->aux_atoms.size > 0) {
-	  process_aux_atoms(ctx);
-	}
+        process_conditional_definitions(ctx);
+        if (ctx->aux_eqs.size > 0) {
+          process_aux_eqs(ctx);
+        }
+        if (ctx->aux_atoms.size > 0) {
+          process_aux_atoms(ctx);
+        }
       }
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       break;
 
@@ -5695,7 +5695,7 @@ static int32_t context_process_assertions(context_t *ctx, uint32_t n, const term
        * Process the candidate variable substitutions if any
        */
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       break;
     }
@@ -5980,16 +5980,16 @@ int32_t context_process_formulas(context_t *ctx, uint32_t n, term_t *f) {
        * up in subst_eqs after the call to process_aux_eqs.
        */
       if (context_breaksym_enabled(ctx)) {
-	break_uf_symmetries(ctx);
+        break_uf_symmetries(ctx);
       }
       if (context_eq_abstraction_enabled(ctx)) {
         analyze_uf(ctx);
       }
       if (ctx->aux_eqs.size > 0) {
-	process_aux_eqs(ctx);
+        process_aux_eqs(ctx);
       }
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       break;
 
@@ -5999,7 +5999,7 @@ int32_t context_process_formulas(context_t *ctx, uint32_t n, term_t *f) {
        * (otherwise analyze_diff_logic may give wrong results).
        */
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       analyze_diff_logic(ctx, true);
       create_auto_idl_solver(ctx);
@@ -6010,7 +6010,7 @@ int32_t context_process_formulas(context_t *ctx, uint32_t n, term_t *f) {
        * Difference logic, we must process the subst_eqs first
        */
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       analyze_diff_logic(ctx, false);
       create_auto_rdl_solver(ctx);
@@ -6023,16 +6023,16 @@ int32_t context_process_formulas(context_t *ctx, uint32_t n, term_t *f) {
        */
       // more optional processing
       if (context_cond_def_preprocessing_enabled(ctx)) {
-	process_conditional_definitions(ctx);
-	if (ctx->aux_eqs.size > 0) {
-	  process_aux_eqs(ctx);
-	}
-	if (ctx->aux_atoms.size > 0) {
-	  process_aux_atoms(ctx);
-	}
+        process_conditional_definitions(ctx);
+        if (ctx->aux_eqs.size > 0) {
+          process_aux_eqs(ctx);
+        }
+        if (ctx->aux_atoms.size > 0) {
+          process_aux_atoms(ctx);
+        }
       }
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       break;
 
@@ -6041,7 +6041,7 @@ int32_t context_process_formulas(context_t *ctx, uint32_t n, term_t *f) {
        * Process the candidate variable substitutions if any
        */
       if (ctx->subst_eqs.size > 0) {
-	context_process_candidate_subst(ctx);
+        context_process_candidate_subst(ctx);
       }
       break;
     }

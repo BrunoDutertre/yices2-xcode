@@ -653,19 +653,19 @@ static void ef_sample_constraint(ef_solver_t *solver, uint32_t i) {
       // learned condition on X:
       cnd = ef_substitution(solver->prob, cnstr->uvars, value, nvars, cnstr->guarantee);
       if (cnd < 0) {
-	solver->status = EF_STATUS_SUBST_ERROR;
-	solver->error_code = cnd;
-	goto done;
+        solver->status = EF_STATUS_SUBST_ERROR;
+        solver->error_code = cnd;
+        goto done;
       }
       ecode = update_exists_context(solver, cnd);
       if (ecode < 0) {
-	solver->status = EF_STATUS_ASSERT_ERROR;
-	solver->error_code = ecode;
-	goto done;
+        solver->status = EF_STATUS_ASSERT_ERROR;
+        solver->error_code = ecode;
+        goto done;
       }
       if (ecode == TRIVIALLY_UNSAT) {
-	solver->status = EF_STATUS_UNSAT;
-	goto done;
+        solver->status = EF_STATUS_UNSAT;
+        goto done;
       }
       break;
 
@@ -1092,7 +1092,7 @@ static void  ef_solver_check_exists_model(ef_solver_t *solver) {
     default:
       i ++;
       if (i == n) {
-	i = 0;
+        i = 0;
       }
       break;
     }

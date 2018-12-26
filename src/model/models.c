@@ -244,7 +244,7 @@ void model_collect_terms(model_t *model, bool all, void *aux, model_filter_t f, 
     r = int_hmap_first_record(hmap);
     while (r != NULL) {
       if (f(aux, r->key)) {
-	ivector_push(v, r->key);
+        ivector_push(v, r->key);
       }
       r = int_hmap_next_record(hmap, r);
     }

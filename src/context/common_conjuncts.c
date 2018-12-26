@@ -108,7 +108,7 @@ static void bfs_collect_conjuncts(bfs_explorer_t *explorer, ivector_t *v) {
       or = or_term_desc(terms, t);
       n = or->arity;
       for (i=0; i<n; i++) {
-	bfs_explorer_push_term(explorer, opposite_term(or->arg[i]));
+        bfs_explorer_push_term(explorer, opposite_term(or->arg[i]));
       }
     } else {
       /*
@@ -166,7 +166,7 @@ static void bfs_collect_disjuncts(bfs_explorer_t *explorer, ivector_t *v) {
       or = or_term_desc(terms, t);
       n = or->arity;
       for (i=0; i<n; i++) {
-	bfs_explorer_push_term(explorer, or->arg[i]);
+        bfs_explorer_push_term(explorer, or->arg[i]);
       }
     } else {
       /*

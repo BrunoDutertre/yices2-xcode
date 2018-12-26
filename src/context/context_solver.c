@@ -165,8 +165,8 @@ static void search(smt_core_t *core, uint32_t conflict_bound, uint32_t *reduce_t
     if (core->has_assumptions) {
       l = get_next_assumption(core);
       if (l != null_literal) {
-	process_assumption(core, l);
-	continue;
+        process_assumption(core, l);
+        continue;
       }
     }
 
@@ -219,8 +219,8 @@ static void luby_search(smt_core_t *core, uint32_t conflict_bound, uint32_t *red
     if (core->has_assumptions) {
       l = get_next_assumption(core);
       if (l != null_literal) {
-	process_assumption(core, l);
-	continue;
+        process_assumption(core, l);
+        continue;
       }
     }
 
@@ -278,8 +278,8 @@ static void special_search(smt_core_t *core, uint32_t conflict_bound, uint32_t *
     if (core->has_assumptions) {
       l = get_next_assumption(core);
       if (l != null_literal) {
-	process_assumption(core, l);
-	continue;
+        process_assumption(core, l);
+        continue;
       }
     }
 
@@ -396,11 +396,11 @@ static void solve(smt_core_t *core, const param_t *params, uint32_t n, const lit
     for (;;) {
       switch (params->branching) {
       case BRANCHING_DEFAULT:
-	if (luby) {
-	  luby_search(core, c_threshold, &reduce_threshold, params->r_factor);
-	} else {
-	  search(core, c_threshold, &reduce_threshold, params->r_factor);
-	}
+        if (luby) {
+          luby_search(core, c_threshold, &reduce_threshold, params->r_factor);
+        } else {
+          search(core, c_threshold, &reduce_threshold, params->r_factor);
+        }
         break;
       case BRANCHING_NEGATIVE:
         special_search(core, c_threshold, &reduce_threshold, params->r_factor, negative_branch);
@@ -425,34 +425,34 @@ static void solve(smt_core_t *core, const param_t *params, uint32_t n, const lit
       //      smt_partial_restart_var(core);
 
       if (luby) {
-	// Luby-style restart
-	if ((u & -u) == v) {
-	  u ++;
-	  v = 1;
-	} else {
-	  v <<= 1;
-	}
-	c_threshold = v * period;
-	trace_restart(core);
+        // Luby-style restart
+        if ((u & -u) == v) {
+          u ++;
+          v = 1;
+        } else {
+          v <<= 1;
+        }
+        c_threshold = v * period;
+        trace_restart(core);
 
       } else {
-	// Either Minisat or Picosat-like restart
+        // Either Minisat or Picosat-like restart
 
-	// inner restart: increase c_threshold
-	c_threshold = (uint32_t) (c_threshold * params->c_factor);
+        // inner restart: increase c_threshold
+        c_threshold = (uint32_t) (c_threshold * params->c_factor);
 
-	if (c_threshold >= d_threshold) {
-	  d_threshold = c_threshold; // Minisat-style
-	  if (params->fast_restart) {
-	    // Picosat style
-	    // outer restart: reset c_threshold and increase d_threshold
-	    c_threshold = params->c_threshold;
-	    d_threshold = (uint32_t) (d_threshold * params->d_factor);
-	  }
-	  trace_restart(core);
-	} else {
-	  trace_inner_restart(core);
-	}
+        if (c_threshold >= d_threshold) {
+          d_threshold = c_threshold; // Minisat-style
+          if (params->fast_restart) {
+            // Picosat style
+            // outer restart: reset c_threshold and increase d_threshold
+            c_threshold = params->c_threshold;
+            d_threshold = (uint32_t) (d_threshold * params->d_factor);
+          }
+          trace_restart(core);
+        } else {
+          trace_inner_restart(core);
+        }
       }
     }
   }
@@ -682,24 +682,24 @@ smt_status_t check_with_delegate(context_t *ctx, const char *sat_solver, uint32_
 
 #if 0
       if (strcmp(sat_solver, "y2sat") == 0) {
-	iter = 0;
-	for (;;) {
-	  gate = gate_table_next(get_gate_table(core), &iter);
-	  if (gate == NULL) break;
-	  if (gate->tag == xorgate_tag(2)) {
-	    nsat_solver_activate_var(delegate.solver, var_of(gate->lit[2]), 1.0, false);
-	  }
-	}
+        iter = 0;
+        for (;;) {
+          gate = gate_table_next(get_gate_table(core), &iter);
+          if (gate == NULL) break;
+          if (gate->tag == xorgate_tag(2)) {
+            nsat_solver_activate_var(delegate.solver, var_of(gate->lit[2]), 1.0, false);
+          }
+        }
       }
 #endif
 
       stat = solve_with_delegate(&delegate, core);
       set_smt_status(core, stat);
       if (stat == STATUS_SAT) {
-	for (x=0; x<num_vars(core); x++) {
-	  v = delegate_get_value(&delegate, x);
-	  set_bvar_value(core, x, v);
-	}
+        for (x=0; x<num_vars(core); x++) {
+          v = delegate_get_value(&delegate, x);
+          set_bvar_value(core, x, v);
+        }
       }
     }
   }
@@ -877,10 +877,10 @@ static void build_term_value(context_t *ctx, model_t *model, term_t t) {
      */
     if (t == r) {
       if (intern_tbl_term_present(&ctx->intern, t)) {
-	tau = term_type(ctx->terms, t);
-	vtbl = model_get_vtbl(model);
-	v = vtbl_make_object(vtbl, tau);
-	model_map_term(model, t, v);
+        tau = term_type(ctx->terms, t);
+        vtbl = model_get_vtbl(model);
+        v = vtbl_make_object(vtbl, tau);
+        model_map_term(model, t, v);
       }
     } else if (model->has_alias) {
       // t != r: keep the substitution [t --> r] in the model
@@ -903,7 +903,8 @@ void context_build_model(model_t *model, context_t *ctx) {
   uint32_t i, n;
   term_t t;
 
-  assert(smt_status(ctx->core) == STATUS_SAT || smt_status(ctx->core) == STATUS_UNKNOWN || mcsat_status(ctx->mcsat) == STATUS_SAT);
+  assert(smt_status(ctx->core) == STATUS_SAT || smt_status(ctx->core) == STATUS_UNKNOWN
+         || mcsat_status(ctx->mcsat) == STATUS_SAT);
 
   /*
    * First build assignments in the satellite solvers
@@ -937,7 +938,7 @@ void context_build_model(model_t *model, context_t *ctx) {
     if (good_term_idx(terms, i)) {
       t = pos_occ(i);
       if (term_kind(terms, t) == UNINTERPRETED_TERM) {
-	build_term_value(ctx, model, t);
+        build_term_value(ctx, model, t);
       }
     }
   }
@@ -983,10 +984,10 @@ bval_t context_bool_term_value(context_t *ctx, term_t t) {
     if (code_is_eterm(x)) {
       // x must be either true_occ or false_occ
       if (x == bool2code(true)) {
-	v = VAL_TRUE;
+        v = VAL_TRUE;
       } else {
-	assert(x == bool2code(false));
-	v = VAL_FALSE;
+        assert(x == bool2code(false));
+        v = VAL_FALSE;
       }
     } else {
       // x refers to a literal in the smt core

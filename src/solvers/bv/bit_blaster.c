@@ -3694,7 +3694,7 @@ void bit_blaster_make_shift_left(bit_blaster_t *s, literal_t *a, literal_t *b, l
       shift = 1;
       for (i=0; i<k-1; i++) {
         c = b[i];
-	if (shifter_control_bit_is_active(s, c)) {
+        if (shifter_control_bit_is_active(s, c)) {
           // aux := (ite c (aux << 2^i) aux)
           conditional_shift_left(s, aux, c, aux, n, shift);
         }
@@ -3862,7 +3862,7 @@ void bit_blaster_make_lshift_right(bit_blaster_t *s, literal_t *a, literal_t *b,
       shift = 1;
       for (i=0; i<k-1; i++) {
         c = b[i];
-	if (shifter_control_bit_is_active(s, c)) {
+        if (shifter_control_bit_is_active(s, c)) {
           // aux := (ite c (aux << 2^i) aux)
           conditional_lshift_right(s, aux, c, aux, n, shift);
         }
@@ -4039,7 +4039,7 @@ void bit_blaster_make_ashift_right(bit_blaster_t *s, literal_t *a, literal_t *b,
       shift = 1;
       for (i=0; i<k-1; i++) {
         c = b[i];
-	if (shifter_control_bit_is_active(s, c)) {
+        if (shifter_control_bit_is_active(s, c)) {
           // aux := (ite c (aux << 2^i) aux)
           conditional_ashift_right(s, aux, c, aux, n, shift);
         }
@@ -4060,7 +4060,7 @@ void bit_blaster_make_ashift_right(bit_blaster_t *s, literal_t *a, literal_t *b,
     for (i=0; i<k; i++) {
       c = b[i];
       if (shifter_control_bit_is_active(s, c)) {
-	// aux := (ite c (aux << 2^i) aux)
+        // aux := (ite c (aux << 2^i) aux)
         conditional_ashift_right(s, aux, c, aux, n, shift);
       }
       shift <<= 1;

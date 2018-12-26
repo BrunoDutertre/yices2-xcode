@@ -645,21 +645,18 @@ value_t make_fresh_function(fresh_val_maker_t *maker, type_t tau) {
        *
        * Take another g of type tau. Since aux is fresh,
        * then g(aux) is the default value for g.
-       * - if g's default is not a[1], then g /= f
-       * - if g's default is a[1] and there's an x /= aux such
-       *   that g(x) = a[1] then g /= f (since f(x) = a[0]).
-       * - otherwise,
-       *   - the default for g is a[1]
-       *   - for any other x in the domain g(x) /= a[1]
-       *   - by construction, the default value for g is
-       *     one that occurs most often in the range of g
-       *     so g(x) /= g(y) whenever x /= y.
-       *   - since the domain has cardinality > 2, there's
-       *     a y such that g(y) /= a[0] and g(y) /= a[1] so g /= f
-       *     in that case too.
+       * - if g maps some x to something other than a[0] and a[1],
+       *   then g /= f.
+       * - if g's default is not a[1], then g /= f.
+       * - otherwise, g maps everything to either a[0] or a[1]
+       *   and g's default value is a[1].
+       *   By construction, g(x) = a[1] for at least half the
+       *   elements x in the domain. Since the domain has more
+       *   than 2 elements, there's an x /= aux for which
+       *   g(x) = a[1] so g /= f (because f(x) = a[0]).
        */
       if (! vtbl_make_two_objects(vtbl, sigma, a)) {
-	assert(false); // should never happen
+        assert(false); // should never happen
       }
       v = vtbl_mk_map(vtbl, n, aux, a[1]); // map (aux[0] ... aux[n-1] := a[1]);
       v = vtbl_mk_function(vtbl, tau, 1, &v, a[0]);

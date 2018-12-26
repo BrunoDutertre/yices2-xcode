@@ -2074,9 +2074,9 @@ static int propagation_via_watched_list(sat_solver_t *sol, uint8_t *val, link_t 
           implied_literal(sol, l1, mk_clause_antecedent(cl, i^1));
 
 #if INSTRUMENT_CLAUSES
-	  if (l == end_learned) {
-	    learned_clause_prop(sol, cl);
-	  }
+          if (l == end_learned) {
+            learned_clause_prop(sol, cl);
+          }
 #endif
 
           // move to the next clause
@@ -2121,7 +2121,7 @@ static int32_t propagation(sat_solver_t *sol) {
     if (bin != NULL) {
       code = propagation_via_bin_vector(sol, sol->value, l, bin);
       if (code != no_conflict) {
-	return code;
+        return code;
       }
     }
 
@@ -2554,7 +2554,7 @@ static void analyze_conflict(sat_solver_t *sol) {
           c += 2;
           l = *c;
           while (l >= 0) {
-	    unresolved += process_literal(sol, l, conflict_level);
+            unresolved += process_literal(sol, l, conflict_level);
             c ++;
             l = *c;
           }
@@ -2814,8 +2814,8 @@ static void partial_restart_var(sat_solver_t *sol) {
     n = sol->decision_level;
     for (i=1; i<=n; i++) {
       if (level_has_lower_activity(sol, ax, i)) {
-	backtrack(sol, i-1);
-	break;
+        backtrack(sol, i-1);
+        break;
       }
     }
   }
@@ -2857,38 +2857,38 @@ solver_status_t sat_search(sat_solver_t *sol, uint32_t conflict_bound) {
 
       if (nb_conflicts >= conflict_bound) {
         if (sol->decision_level > 0) {
-	  // restart
-	  partial_restart_var(sol);
+          // restart
+          partial_restart_var(sol);
         }
         return status_unsolved;
       }
 
       // At level 0: mark literals + simplify
       if (sol->decision_level == 0) {
-	mark_level0_literals(sol);
+        mark_level0_literals(sol);
 
-	if (sol->stack.top > sol->simplify_bottom &&
-	    sol->stats.propagations >= sol->simplify_props + sol->simplify_threshold) {
+        if (sol->stack.top > sol->simplify_bottom &&
+            sol->stats.propagations >= sol->simplify_props + sol->simplify_threshold) {
 
 #if TRACE
-	  printf("---> Simplify\n");
-	  printf("---> level = %u, bottom = %u, top = %u\n", sol->decision_level, sol->simplify_bottom, sol->stack.top);
-	  printf("---> props = %"PRIu64", threshold = %"PRIu64"\n", sol->stats.propagations, sol->simplify_threshold);
+          printf("---> Simplify\n");
+          printf("---> level = %u, bottom = %u, top = %u\n", sol->decision_level, sol->simplify_bottom, sol->stack.top);
+          printf("---> props = %"PRIu64", threshold = %"PRIu64"\n", sol->stats.propagations, sol->simplify_threshold);
 #endif
 
-	  simplify_clause_database(sol);
-	  sol->simplify_bottom = sol->stack.top;
-	  sol->simplify_props = sol->stats.propagations;
-	  sol->simplify_threshold = sol->stats.learned_literals + sol->stats.prob_literals + 2 * sol->nb_bin_clauses;
-	}
+          simplify_clause_database(sol);
+          sol->simplify_bottom = sol->stack.top;
+          sol->simplify_props = sol->stats.propagations;
+          sol->simplify_threshold = sol->stats.learned_literals + sol->stats.prob_literals + 2 * sol->nb_bin_clauses;
+        }
       }
 
 #if INSTRUMENT_CLAUSES
       if (sol->stats.conflicts >= next_snapshot) {
-	snapshot(sol);
-	do {
-	  next_snapshot += 10000;
-	} while (next_snapshot < sol->stats.conflicts);
+        snapshot(sol);
+        do {
+          next_snapshot += 10000;
+        } while (next_snapshot < sol->stats.conflicts);
       }
 #endif
 
@@ -2896,8 +2896,8 @@ solver_status_t sat_search(sat_solver_t *sol, uint32_t conflict_bound) {
       // then increase the threshold
       if (get_cv_size(sol->learned_clauses) >= sol->reduce_threshold + sol->stack.top) {
         reduce_learned_clause_set(sol);
-	sol->reduce_threshold = (uint32_t) (sol->reduce_threshold * REDUCE_FACTOR);
-	//	sol->reduce_threshold += INCR_REDUCE_THRESHOLD;
+        sol->reduce_threshold = (uint32_t) (sol->reduce_threshold * REDUCE_FACTOR);
+        //	sol->reduce_threshold += INCR_REDUCE_THRESHOLD;
       }
 
       x = select_variable(sol);
@@ -2933,8 +2933,8 @@ solver_status_t sat_search(sat_solver_t *sol, uint32_t conflict_bound) {
         cl = add_learned_clause(sol, n, b);
         implied_literal(sol, l, mk_clause0_antecedent(cl));
 #if INSTRUMENT_CLAUSES
-	// EXPERIMENTAL
-	learned_clause_prop(sol, cl);
+        // EXPERIMENTAL
+        learned_clause_prop(sol, cl);
 #endif
 
       } else if (n == 2) {

@@ -166,13 +166,13 @@ void print_context_sharing(FILE *f, context_t *ctx) {
       t = pos_occ(i);
       p = unique_parent(map, t);
       if (p == true_term) {
-	print_term_id(f, t);
-	fprintf(f, " --> shared\n");
+        print_term_id(f, t);
+        fprintf(f, " --> shared\n");
       } else if (p != NULL_TERM) {
-	print_term_id(f, t);
-	fprintf(f, " --> not shared: parent = ");
-	print_term_id(f, p);
-	fprintf(f, "\n");
+        print_term_id(f, t);
+        fprintf(f, " --> not shared: parent = ");
+        print_term_id(f, p);
+        fprintf(f, "\n");
       }
     }
   }
@@ -257,8 +257,8 @@ static void pp_term_sharing(yices_pp_t *printer, sharing_map_t *map) {
     if (good_term_idx(terms, i)) {
       t = pos_occ(i);
       if (term_is_shared(map, t)) {
-	pp_term_full(printer, terms, t);
-	flush_yices_pp(printer);
+        pp_term_full(printer, terms, t);
+        flush_yices_pp(printer);
       }
     }
   }

@@ -1827,10 +1827,10 @@ bool type_matcher_add_constraint(type_matcher_t *matcher, type_t tau, type_t sig
     if (k2 >= 0) {
       // no conflict
       if (k1 != k2) {
-	type_matcher_set_constraint(matcher, tau, k2);
-	if (k1 < 0) {
-	  type_matcher_addvar(matcher, tau);
-	}
+        type_matcher_set_constraint(matcher, tau, k2);
+        if (k1 < 0) {
+          type_matcher_addvar(matcher, tau);
+        }
       }
       return true;
     }
@@ -1842,14 +1842,14 @@ bool type_matcher_add_constraint(type_matcher_t *matcher, type_t tau, type_t sig
       k1 = type_matcher_get_constraint(matcher, tau);
       k2 = merge_constraints(matcher, k1, mk_constraint_code(sigma, eq));
       if (k2 >= 0) {
-	if (k2 == k1) return true;
-	// new constraint on tau encoded in k2
-	sigma = arg_of_constraint(k2);
-	eq = is_eq_constraint(eq);
-	if (match_tuple_types(matcher, tuple_type_desc(table, tau), tuple_type_desc(table, sigma), eq)) {
-	  type_matcher_set_constraint(matcher, tau, k2);
-	  return true;
-	}
+        if (k2 == k1) return true;
+        // new constraint on tau encoded in k2
+        sigma = arg_of_constraint(k2);
+        eq = is_eq_constraint(eq);
+        if (match_tuple_types(matcher, tuple_type_desc(table, tau), tuple_type_desc(table, sigma), eq)) {
+          type_matcher_set_constraint(matcher, tau, k2);
+          return true;
+        }
       }
     }
     break;
@@ -1859,14 +1859,14 @@ bool type_matcher_add_constraint(type_matcher_t *matcher, type_t tau, type_t sig
       k1 = type_matcher_get_constraint(matcher, tau);
       k2 = merge_constraints(matcher, k1, mk_constraint_code(sigma, eq));
       if (k2 >= 0) {
-	if (k1 == k2) return true;
-	// new constraint on tau encoded in k2
-	sigma = arg_of_constraint(k2);
-	eq = is_eq_constraint(eq);
-	if (match_function_types(matcher, function_type_desc(table, tau), function_type_desc(table, sigma), eq)) {
-	  type_matcher_set_constraint(matcher, tau, k2);
-	  return true;
-	}
+        if (k1 == k2) return true;
+        // new constraint on tau encoded in k2
+        sigma = arg_of_constraint(k2);
+        eq = is_eq_constraint(eq);
+        if (match_function_types(matcher, function_type_desc(table, tau), function_type_desc(table, sigma), eq)) {
+          type_matcher_set_constraint(matcher, tau, k2);
+          return true;
+        }
       }
     }
     break;
@@ -1877,13 +1877,13 @@ bool type_matcher_add_constraint(type_matcher_t *matcher, type_t tau, type_t sig
       k1 = type_matcher_get_constraint(matcher, tau);
       k2 = merge_constraints(matcher, k1, mk_constraint_code(sigma, true));
       if (k2 >= 0) {
-	if (k1 == k2) return true;
-	// new constraint on tau
-	sigma = arg_of_constraint(k2);
-	if (match_instance_types(matcher, instance_type_desc(table, tau), instance_type_desc(table, sigma))) {
-	  type_matcher_set_constraint(matcher, tau, k2);
-	  return true;
-	}
+        if (k1 == k2) return true;
+        // new constraint on tau
+        sigma = arg_of_constraint(k2);
+        if (match_instance_types(matcher, instance_type_desc(table, tau), instance_type_desc(table, sigma))) {
+          type_matcher_set_constraint(matcher, tau, k2);
+          return true;
+        }
       }
     }
     break;

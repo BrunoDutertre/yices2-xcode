@@ -3365,8 +3365,8 @@ static void bitarray_bounds_signed(literal_t *a, uint32_t n, bv_interval_t *intv
   }
 
   assert(bvconst_is_normalized(intv->low, n) && 
-	 bvconst_is_normalized(intv->high, n) &&
-	 bvconst_sle(intv->low, intv->high, n));
+         bvconst_is_normalized(intv->high, n) &&
+         bvconst_sle(intv->low, intv->high, n));
 }
 
 
@@ -3640,7 +3640,7 @@ static void bvsrem_bounds_s(bv_solver_t *solver, thvar_t op[2], uint32_t n, bv_i
         // -(b-1) <= (bvsrem x y) <= b-1
         bvconst_set(intv->high, k, b);
         bvconst_sub_one(intv->high, k);
-	assert(bvconst_is_normalized(intv->high, n));
+        assert(bvconst_is_normalized(intv->high, n));
         bvconst_set(intv->low, k, intv->high);
         bvconst_negate(intv->low, k);
         bvconst_normalize(intv->low, n);

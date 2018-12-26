@@ -352,7 +352,7 @@ uint32_t convert_value_array(term_table_t *terms, value_table_t *vtbl, uint32_t 
       t = convert_value(&convert, b[i]);
       b[i] = t;
       if (t >= 0) { // no error
-	s ++;
+        s ++;
       }
     }
     delete_val_converter(&convert);

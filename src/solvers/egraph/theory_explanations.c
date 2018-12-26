@@ -192,12 +192,12 @@ void th_explanation_remove_duplicate_atoms(th_explanation_t *e) {
       l0 = av->data[0];
       j = 1;
       for (i=1; i<n; i++) {
-	l1 = av->data[i];
-	if (l0 != l1) {
-	  av->data[j] = l1;
-	  l0 = l1;
-	  j ++;
-	}
+        l1 = av->data[i];
+        if (l0 != l1) {
+          av->data[j] = l1;
+          l0 = l1;
+          j ++;
+        }
       }
       av->size = j;
     }
@@ -323,10 +323,10 @@ void th_explanation_remove_duplicate_eqs(th_explanation_t *e) {
       sort_eq_array(eqv->data, n);
       j = 0;
       for (i=1; i<n; i++) {
-	if (! same_eq(eqv->data + j, eqv->data + i)) {
-	  j ++;
-	  eqv->data[j] = eqv->data[i];
-	}
+        if (! same_eq(eqv->data + j, eqv->data + i)) {
+          j ++;
+          eqv->data[j] = eqv->data[i];
+        }
       }
       eqv->size = j+1;
     }

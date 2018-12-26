@@ -568,21 +568,21 @@ int32_t decode_config(const ctx_config_t *config, smt_logic_t *logic, context_ar
      */
     if (config->arith_config == CTX_CONFIG_AUTO && config->mode == CTX_MODE_ONECHECK) {
       if (logic_code == QF_IDL) {
-	*logic = QF_IDL;
-	*arch = CTX_ARCH_AUTO_IDL;
-	*mode = CTX_MODE_ONECHECK;
-	*iflag = false;
-	*qflag = false;
-	goto done;
+        *logic = QF_IDL;
+        *arch = CTX_ARCH_AUTO_IDL;
+        *mode = CTX_MODE_ONECHECK;
+        *iflag = false;
+        *qflag = false;
+        goto done;
       }
 
       if (logic_code == QF_RDL) {
-	*logic = QF_RDL;
-	*arch = CTX_ARCH_AUTO_RDL;
-	*mode = CTX_MODE_ONECHECK;
-	*iflag = false;
-	*qflag = false;
-	goto done;
+        *logic = QF_RDL;
+        *arch = CTX_ARCH_AUTO_RDL;
+        *mode = CTX_MODE_ONECHECK;
+        *iflag = false;
+        *qflag = false;
+        goto done;
       }
     }
 

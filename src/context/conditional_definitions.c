@@ -108,8 +108,8 @@ static void add_var_to_vector(ivector_t *v, term_t t) {
       // insert t in v->data[i] and shift everything
       ivector_push(v, 0); // make room
       while (j > i) {
-	v->data[j] = v->data[j-1];
-	j --;
+        v->data[j] = v->data[j-1];
+        j --;
       }
       v->data[j] = t;
     }
@@ -266,41 +266,41 @@ static harray_t *bool_vars_of_term(bool_var_collector_t *collect, term_t t) {
       terms = collect->terms;
       switch (kind_for_idx(terms, i)) {
       case UNINTERPRETED_TERM:
-	set = singleton(collect->store, pos_occ(i));
-	break;
+        set = singleton(collect->store, pos_occ(i));
+        break;
 
       case ITE_TERM:
       case ITE_SPECIAL:
       case OR_TERM:
       case XOR_TERM:
-	e = simple_cache_find(&collect->cache, i);
-	if (e != NULL) {
-	  assert(e->key == i && e->tag == 0);
-	  set =  e->val.ptr;
-	} else {
-	  set = bool_vars_of_composite(collect, composite_for_idx(terms, i));
-	  cache_bool_var_set(collect, i, set);
-	}
-	break;
+        e = simple_cache_find(&collect->cache, i);
+        if (e != NULL) {
+          assert(e->key == i && e->tag == 0);
+          set =  e->val.ptr;
+        } else {
+          set = bool_vars_of_composite(collect, composite_for_idx(terms, i));
+          cache_bool_var_set(collect, i, set);
+        }
+        break;
 
       case EQ_TERM:
-	eq = composite_for_idx(terms, i);
-	if (is_boolean_term(terms, eq->arg[0])) {
-	  // treat i as (IFF t1 t2)
-	  e = simple_cache_find(&collect->cache, i);
-	  if (e != NULL) {
-	    assert(e->key == i && e->tag == 0);
-	    set =  e->val.ptr;
-	  } else {
-	    set = bool_vars_of_composite(collect, eq);
-	    cache_bool_var_set(collect, i, set);
-	  }
-	}
-	break;
+        eq = composite_for_idx(terms, i);
+        if (is_boolean_term(terms, eq->arg[0])) {
+          // treat i as (IFF t1 t2)
+          e = simple_cache_find(&collect->cache, i);
+          if (e != NULL) {
+            assert(e->key == i && e->tag == 0);
+            set =  e->val.ptr;
+          } else {
+            set = bool_vars_of_composite(collect, eq);
+            cache_bool_var_set(collect, i, set);
+          }
+        }
+        break;
 
       default:
-	// not a pure Boolean term
-	break;
+        // not a pure Boolean term
+        break;
       }
     }
   }
@@ -498,9 +498,9 @@ static void print_truth_tbl(cond_def_collector_t *c, uint64_t ttbl, term_t *x, u
       bit = (k & (1 << i));
       assert(bit == 0 || bit == (1 << i));
       if (bit == 0) {
-	printf("  %6s", "0");
+        printf("  %6s", "0");
       } else {
-	printf("  %6s", "1");
+        printf("  %6s", "1");
       }
     }
     bit = (ttbl & mask);
@@ -545,9 +545,9 @@ static void print_definition_table(cond_def_collector_t *c, term_t *table, term_
       bit = (k & (1 << i));
       assert(bit == 0 || bit == (1 << i));
       if (bit == 0) {
-	printf("  %6s", "0");
+        printf("  %6s", "0");
       } else {
-	printf("  %6s", "1");
+        printf("  %6s", "1");
       }
     }
     printf("   |   ");
@@ -664,14 +664,14 @@ static void cond_def_explore_or(cond_def_collector_t *c, composite_term_t *or, b
     for (i=0; i<n; i++) {
       t = or->arg[i];
       if (bool_term_is_pure(&c->collect, t)) {
-	// add (not t) as an assumption
-	push_assumption(c, opposite_term(t));
+        // add (not t) as an assumption
+        push_assumption(c, opposite_term(t));
       } else {
-	if (u != NULL_TERM) {
-	  // we can't convert the or to a conditional definition
-	  goto abort;
-	}
-	u = t;
+        if (u != NULL_TERM) {
+          // we can't convert the or to a conditional definition
+          goto abort;
+        }
+        u = t;
       }
     }
 
@@ -743,16 +743,16 @@ static void cond_def_explore(cond_def_collector_t *c, term_t f) {
     //    if (is_term_eq_const(terms, f, &x, &a)) {
     if (is_unint_eq_const(terms, f, &x, &a)) {
       if (c->assumptions.size <= MAX_COND_DEF_CONJUNCTS) {
-	set = bool_vars_of_array(c, c->assumptions.size, c->assumptions.data);
-	/*
-	 * If set is empty, we ignore this definition: either the assumptions
-	 * are all true or all false. In either case, normal internalization
-	 * will process (x == a) or ignore it.
-	 */
-	if (set->nelems > 0) {
-	  def = new_cond_def(x, a, set, c->assumptions.size, c->assumptions.data);
-	  add_cond_def(c, def);
-	}
+        set = bool_vars_of_array(c, c->assumptions.size, c->assumptions.data);
+        /*
+         * If set is empty, we ignore this definition: either the assumptions
+         * are all true or all false. In either case, normal internalization
+         * will process (x == a) or ignore it.
+         */
+        if (set->nelems > 0) {
+          def = new_cond_def(x, a, set, c->assumptions.size, c->assumptions.data);
+          add_cond_def(c, def);
+        }
       }
     }
     break;
@@ -1135,16 +1135,16 @@ static void assert_arith_bounds_from_table(cond_def_collector_t *c, term_t x, ui
     if (t >= 0) {
       assert(term_kind(terms, t) == ARITH_CONSTANT);
       if (min < 0) {
-	assert(max < 0);
-	min = t;
-	max = t;
-      } else {
-	if (arith_lt(terms, t, min)) {
-	  min = t;
-	}
-	if (arith_lt(terms, max, t)) {
-	  max = t;
-	}
+        assert(max < 0);
+        min = t;
+        max = t;
+            } else {
+        if (arith_lt(terms, t, min)) {
+          min = t;
+        }
+        if (arith_lt(terms, max, t)) {
+          max = t;
+        }
       }
     }
   }
@@ -1390,12 +1390,12 @@ static harray_t *merge_vsets(cond_def_collector_t *c, cond_def_t **a, uint32_t n
       assert(v->size == 0);
       add_vars_to_vector(v, s);
       do {
-	add_vars_to_vector(v, a[i]->vset);
-	i ++;
+        add_vars_to_vector(v, a[i]->vset);
+        i ++;
       } while (v->size <= 6 && i < n);
 
       if (v->size <= 6) {
-	r = vector_to_set(&c->store, v);
+        r = vector_to_set(&c->store, v);
       }
       ivector_reset(v);
     }
@@ -1453,19 +1453,19 @@ static void analyze_term_cond_def(cond_def_collector_t *c, term_t x, cond_def_t 
        */
       ttbl = truth_tbl_of_array(c, d->nconds, d->cond, s->data, s->nelems);
       for (k=0; k<max_k; k++) {
-	if (truth_tbl_test_row(ttbl, k)) {
-	  /*
-	   * table[k] must be equal to d->value
-	   * if table[k] is already set to something else, we mark the conflict
-	   * by setting table[k] to -2.
-	   */
-	  if (table[k] == NULL_TERM) {
-	    table[k] = d->value;
-	  } else if (table[k] != d->value) {
-	    assert(table[k] == -2 || disequal_terms(c->terms, d->value, table[k], true));
-	    table[k] = -2;
-	  }
-	}
+        if (truth_tbl_test_row(ttbl, k)) {
+          /*
+           * table[k] must be equal to d->value
+           * if table[k] is already set to something else, we mark the conflict
+           * by setting table[k] to -2.
+           */
+          if (table[k] == NULL_TERM) {
+            table[k] = d->value;
+          } else if (table[k] != d->value) {
+            assert(table[k] == -2 || disequal_terms(c->terms, d->value, table[k], true));
+            table[k] = -2;
+          }
+        }
       }
     }
 

@@ -1196,9 +1196,9 @@ int32_t aproj_add_constraint(arith_projector_t *proj, term_t c) {
     } else {
       t = arith_eq_arg(terms, c);
       if (term_kind(terms, t) == ARITH_POLY) {
-	aproj_add_poly_eq_zero(proj, poly_term_desc(terms, t));
+        aproj_add_poly_eq_zero(proj, poly_term_desc(terms, t));
       } else {
-	aproj_add_var_eq_zero(proj, t);
+        aproj_add_var_eq_zero(proj, t);
       }
     }
     break;
@@ -1216,16 +1216,16 @@ int32_t aproj_add_constraint(arith_projector_t *proj, term_t c) {
     if (is_pos_term(c)) {
       // atom (t >= 0)
       if (term_kind(terms, t) == ARITH_POLY) {
-	aproj_add_poly_geq_zero(proj, poly_term_desc(terms, t));
+        aproj_add_poly_geq_zero(proj, poly_term_desc(terms, t));
       } else {
-	aproj_add_var_geq_zero(proj, t);
+        aproj_add_var_geq_zero(proj, t);
       }
     } else {
       // atom (t < 0)
       if (term_kind(terms, t) == ARITH_POLY) {
-	aproj_add_poly_lt_zero(proj, poly_term_desc(terms, t));
+        aproj_add_poly_lt_zero(proj, poly_term_desc(terms, t));
       } else {
-	aproj_add_var_lt_zero(proj, t);
+        aproj_add_var_lt_zero(proj, t);
       }
     }
     break;
@@ -1942,8 +1942,8 @@ void aproj_get_formula_vector(arith_projector_t *proj, ivector_t *v) {
     for (i=0; i<n; i++) {
       c = set->data[i];
       if (live_ptr_elem(c)) {
-	t = aproj_convert_constraint(proj, c);
-	ivector_push(v, t);
+        t = aproj_convert_constraint(proj, c);
+        ivector_push(v, t);
       }
     }
   }

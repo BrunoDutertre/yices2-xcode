@@ -2358,16 +2358,16 @@ static void propagate_application(fun_solver_t *solver, composite_t *c, thvar_t 
     do {
       edges = vtbl->edges[z]; // edges incident to z
       if (edges != NULL) {
-	n = iv_size(edges);
-	for (i=0; i<n; i++) {
-	  k = edges[i];
-	  y = adjacent_root(solver, z, k);
-	  if (!tst_bit(vtbl->mark, y) && !masking_edge(solver, k, c)) {
-	    // y not visited yet and reached via a non-masking path
-	    fun_queue_push(queue, y);
-	    set_bit(vtbl->mark, y);
-	  }
-	}
+        n = iv_size(edges);
+        for (i=0; i<n; i++) {
+          k = edges[i];
+          y = adjacent_root(solver, z, k);
+          if (!tst_bit(vtbl->mark, y) && !masking_edge(solver, k, c)) {
+            // y not visited yet and reached via a non-masking path
+            fun_queue_push(queue, y);
+            set_bit(vtbl->mark, y);
+          }
+        }
       }
       z = vtbl->next[z]; // next node in the class
     } while (z != null_thvar);
@@ -2580,9 +2580,9 @@ static void fun_solver_assign_base_values(fun_solver_t *solver) {
       assert(h <= p);
       k = -1; // negative index for fresh values if needed
       while (h < p) {
-	buffer.data[h] = k;
-	k --;
-	h ++;
+        buffer.data[h] = k;
+        k --;
+        h ++;
       }
 
       /*
@@ -2590,15 +2590,15 @@ static void fun_solver_assign_base_values(fun_solver_t *solver) {
        */
       h = 0;
       for (j=m; j<i; j++) {
-	x = v->data[j];
-	k = vtbl->base[x];
-	assert(solver->base_value[k] == UNKNOWN_BASE_VALUE);
-	solver->base_value[k] = buffer.data[h];
+        x = v->data[j];
+        k = vtbl->base[x];
+        assert(solver->base_value[k] == UNKNOWN_BASE_VALUE);
+        solver->base_value[k] = buffer.data[h];
 #if TRACE
-	printf("---> base_value[%"PRId32"] = %"PRId32"\n", k, solver->base_value[k]);
+        printf("---> base_value[%"PRId32"] = %"PRId32"\n", k, solver->base_value[k]);
 #endif
-	h ++;
-	if (h >= p) h = 0;
+        h ++;
+        if (h >= p) h = 0;
       }
 
     } else {

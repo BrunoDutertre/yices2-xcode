@@ -296,13 +296,13 @@ static void low_mem_merge(stable_sorter_t *sorter, uint32_t i, uint32_t j, uint3
       p = a[t];
       q = a[u];
       if (sorter->cmp(sorter->aux, p, q)) {
-	b[s] = p;
-	s ++;
-	t ++;
+        b[s] = p;
+        s ++;
+        t ++;
       } else {
-	b[s] = q;
-	s ++;
-	u ++;
+        b[s] = q;
+        s ++;
+        u ++;
       }
     } while (s < n && t < j && u < k);
 
@@ -537,8 +537,8 @@ static bool balanced_sorter(stable_sorter_t *sorter) {
   if (n >= 3) {
     for (i=0; i<n-2; i++) {
       if (seglen(sorter, i) <= seglen(sorter, i+1) + seglen(sorter, i+2)) {
-	// segment i is too short
-	return false;
+        // segment i is too short
+        return false;
       }
     }    
   }
@@ -605,13 +605,13 @@ static void balance_runs(stable_sorter_t *sorter) {
      */
     if ((b - a <= d - b) || (n >= 4 && (a - sorter->seg[n-4] <= c - a))) { 
       if (b - a < d - c) {
-	// merge left and middle
-	merge_runs(sorter, a, b, c);
-	sorter->seg[n-2] = c;
+        // merge left and middle
+        merge_runs(sorter, a, b, c);
+        sorter->seg[n-2] = c;
       } else {
-	// merge middle and right
-	merge_runs(sorter, b, c, d);
-	c = b;
+        // merge middle and right
+        merge_runs(sorter, b, c, d);
+        c = b;
       }
     } else if (c - b <= d - c) {
       // merge middle and right

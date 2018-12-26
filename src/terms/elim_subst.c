@@ -135,10 +135,10 @@ static bool elim_subst_try_arith_elim(elim_subst_t *subst, polynomial_t *p, bool
     x = p->mono[i].var;
     if (is_elim_candidate(subst, x)) {
       if (!check_cycles || !arith_elim_causes_cycle(subst, p, x)) {
-	// success: add the map [x --> q] for q = elim of x in p
-	q = mk_arith_elim_poly(subst->mngr, p, x);
-	full_subst_add_map(&subst->full_subst, x, q);
-	return true;
+        // success: add the map [x --> q] for q = elim of x in p
+        q = mk_arith_elim_poly(subst->mngr, p, x);
+        full_subst_add_map(&subst->full_subst, x, q);
+        return true;
       }
     }
     i ++;
@@ -339,7 +339,7 @@ bool elim_subst_try_cheap_map(elim_subst_t *subst, term_t f, bool check_cycles) 
     if (is_boolean_term(terms, t1)) {
       // if f is (not (eq t1 t2)), we rewrite it to (eq (not t1) t2)
       if (is_neg_term(f)) {
-	t1 = opposite_term(t1);
+        t1 = opposite_term(t1);
       }
       result = elim_subst_try_booleq(subst, t1, t2, check_cycles);
     } else if (is_pos_term(f)) {

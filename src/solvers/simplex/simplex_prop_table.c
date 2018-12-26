@@ -478,11 +478,11 @@ void prop_table_reduce(prop_table_t *table) {
     p = table->row[i];
     if (p != NULL){
       if (p->activity < threshold && p->lock != null_literal) {
-	delete_prop_row(p);
-	table->row[i] = NULL;
-	ivector_push(&table->free_rows, i);
+        delete_prop_row(p);
+        table->row[i] = NULL;
+        ivector_push(&table->free_rows, i);
       } else {
-	attach_row(table, p, i);
+        attach_row(table, p, i);
       }
     }
   }

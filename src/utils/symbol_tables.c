@@ -198,7 +198,7 @@ static void stbl_extend(stbl_t *sym_table) {
 #if TRACE_RESIZE
   printf("resize table %p: cost = %"PRIu32", nelems = %"PRIu32", ndeleted = %"PRIu32
          ", old size = %"PRIu32", new size = %"PRIu32"\n",
-	 sym_table, sym_table->cost, sym_table->nelems, sym_table->ndeleted, old_size, n);
+         sym_table, sym_table->cost, sym_table->nelems, sym_table->ndeleted, old_size, n);
   fflush(stdout);
 #endif
 }
@@ -253,7 +253,7 @@ void delete_stbl(stbl_t *sym_table) {
 
 #if TRACE_RESIZE
   printf("delete table %p: cost = %"PRIu32", nelems = %"PRIu32", ndeleted = %"PRIu32", size = %"PRIu32"\n",
-	 sym_table, sym_table->cost, sym_table->nelems, sym_table->ndeleted, sym_table->size);
+         sym_table, sym_table->cost, sym_table->nelems, sym_table->ndeleted, sym_table->size);
   fflush(stdout);
 #endif
 
@@ -519,13 +519,13 @@ void stbl_remove_records(stbl_t *sym_table, void *aux, stbl_filter_t f) {
     while (r != NULL) {
       p = r->next;
       if (f(aux, r)) {
-	sym_table->finalize(r);
-	stbl_free_record(sym_table, r);
-	r = p;
+        sym_table->finalize(r);
+        stbl_free_record(sym_table, r);
+        r = p;
       } else {
-	// keep r
-	*q = r;
-	q = &r->next;
+        // keep r
+        *q = r;
+        q = &r->next;
       }
     }
     *q = NULL;
