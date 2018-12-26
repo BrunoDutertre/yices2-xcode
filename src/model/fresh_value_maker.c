@@ -505,7 +505,7 @@ static bool gen_fresh_tuple(fresh_val_maker_t *maker, uint32_t n, type_t *tau, v
   value_table_t *vtbl;
   tuple_counter_t *ctr;
   uint32_t j;
-  value_t v;
+  value_t v = 0;
 
   types = maker->types;
   vtbl = maker->vtbl;

@@ -87,7 +87,7 @@ bool formula_holds_in_model(model_t *mdl, term_t f, int32_t *code) {
 int32_t evaluate_term_array(model_t *mdl, uint32_t n, const term_t a[], value_t b[]) {
   evaluator_t evaluator;
   uint32_t i, k;
-  value_t v;
+  value_t v = 0;
 
   /*
    * First pass: simple eval of all terms.

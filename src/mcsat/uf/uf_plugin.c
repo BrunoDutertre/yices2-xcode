@@ -1031,8 +1031,8 @@ void uf_plugin_build_model(plugin_t* plugin, model_t* model) {
   // - while same function, collect the concrete mappings
   // - if different function, construct the function and add to model
   uint32_t i;
-  int32_t app_f, prev_app_f = 0;  // Current and previous function symbol
-  term_t app_term, prev_app_term; // Current and previous function application term
+  int32_t app_f = 0, prev_app_f = 0;  // Current and previous function symbol
+  term_t app_term = 0, prev_app_term; // Current and previous function application term
   variable_t app_var;        // Current function application term variable
   type_t app_type;           // Current function application term type
   for (i = 0, prev_app_term = NULL_TERM; i < app_reps.size; ++ i) {
