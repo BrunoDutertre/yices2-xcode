@@ -732,9 +732,9 @@
 		1588410821D11782005CC0EB /* presburger.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90521CE8C2A00C03CC3 /* presburger.c */; };
 		1588410921D11782005CC0EB /* presburger.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90521CE8C2A00C03CC3 /* presburger.c */; };
 		1588410A21D11783005CC0EB /* presburger.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90521CE8C2A00C03CC3 /* presburger.c */; };
-		1588410F21D11797005CC0EB /* yices_debug_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */; };
-		1588411021D11797005CC0EB /* yices_debug_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */; };
-		1588411121D11798005CC0EB /* yices_debug_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */; };
+		1588410F21D11797005CC0EB /* yices_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_version.c */; };
+		1588411021D11797005CC0EB /* yices_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_version.c */; };
+		1588411121D11798005CC0EB /* yices_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_version.c */; };
 		1588411221D117A3005CC0EB /* smt_logic_codes.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F91121CE8C2A00C03CC3 /* smt_logic_codes.c */; };
 		1588411321D117A4005CC0EB /* smt_logic_codes.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F91121CE8C2A00C03CC3 /* smt_logic_codes.c */; };
 		1588411421D117A5005CC0EB /* smt_logic_codes.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F91121CE8C2A00C03CC3 /* smt_logic_codes.c */; };
@@ -764,11 +764,11 @@
 		1588412D21D11A91005CC0EB /* int_array_sort.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F88A21CE8C2A00C03CC3 /* int_array_sort.c */; };
 		1588412F21D11AB4005CC0EB /* string_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F8A521CE8C2A00C03CC3 /* string_utils.c */; };
 		1588413021D11AB5005CC0EB /* string_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F8A521CE8C2A00C03CC3 /* string_utils.c */; };
-		1588413121D11ADC005CC0EB /* yices_debug_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */; };
+		1588413121D11ADC005CC0EB /* yices_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_version.c */; };
 		1588413221D11CD1005CC0EB /* tag_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F88521CE8C2A00C03CC3 /* tag_map.c */; };
 		1588413321D11D05005CC0EB /* int_array_sort.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F88A21CE8C2A00C03CC3 /* int_array_sort.c */; };
 		1588413421D11D2B005CC0EB /* hash_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F8BB21CE8C2A00C03CC3 /* hash_functions.c */; };
-		1588413521D11D49005CC0EB /* yices_debug_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */; };
+		1588413521D11D49005CC0EB /* yices_version.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F90A21CE8C2A00C03CC3 /* yices_version.c */; };
 		1588413621D11D6E005CC0EB /* reader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F75221CE8C2A00C03CC3 /* reader.c */; };
 		1588413721D11D7E005CC0EB /* int_vectors.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F85221CE8C2A00C03CC3 /* int_vectors.c */; };
 		1588413821D11DA7005CC0EB /* uint_array_sort.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F8C221CE8C2A00C03CC3 /* uint_array_sort.c */; };
@@ -1487,8 +1487,7 @@
 		1512F90521CE8C2A00C03CC3 /* presburger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = presburger.c; sourceTree = "<group>"; };
 		1512F90621CE8C2A00C03CC3 /* generalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = generalization.h; sourceTree = "<group>"; };
 		1512F90821CE8C2A00C03CC3 /* yices_iterators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yices_iterators.h; sourceTree = "<group>"; };
-		1512F90921CE8C2A00C03CC3 /* yices_release_version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yices_release_version.c; sourceTree = "<group>"; };
-		1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yices_debug_version.c; sourceTree = "<group>"; };
+		1512F90A21CE8C2A00C03CC3 /* yices_version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yices_version.c; sourceTree = "<group>"; };
 		1512F90B21CE8C2A00C03CC3 /* yval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yval.h; sourceTree = "<group>"; };
 		1512F90C21CE8C2A00C03CC3 /* yices_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yices_extensions.h; sourceTree = "<group>"; };
 		1512F90D21CE8C2A00C03CC3 /* search_parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = search_parameters.h; sourceTree = "<group>"; };
@@ -4843,8 +4842,7 @@
 			isa = PBXGroup;
 			children = (
 				1512F90821CE8C2A00C03CC3 /* yices_iterators.h */,
-				1512F90921CE8C2A00C03CC3 /* yices_release_version.c */,
-				1512F90A21CE8C2A00C03CC3 /* yices_debug_version.c */,
+				1512F90A21CE8C2A00C03CC3 /* yices_version.c */,
 				1512F90B21CE8C2A00C03CC3 /* yval.h */,
 				1512F90C21CE8C2A00C03CC3 /* yices_extensions.h */,
 				1512F90D21CE8C2A00C03CC3 /* search_parameters.h */,
@@ -8881,7 +8879,7 @@
 				15883E0721D10E54005CC0EB /* yices_sat.c in Sources */,
 				1588412D21D11A91005CC0EB /* int_array_sort.c in Sources */,
 				1588412421D11918005CC0EB /* command_line.c in Sources */,
-				1588413121D11ADC005CC0EB /* yices_debug_version.c in Sources */,
+				1588413121D11ADC005CC0EB /* yices_version.c in Sources */,
 				1588412721D1198D005CC0EB /* int_vectors.c in Sources */,
 				1588403721D11588005CC0EB /* memalloc.c in Sources */,
 				1588412821D1199E005CC0EB /* stable_sort.c in Sources */,
@@ -8897,7 +8895,7 @@
 				1588413221D11CD1005CC0EB /* tag_map.c in Sources */,
 				1588413721D11D7E005CC0EB /* int_vectors.c in Sources */,
 				1588413321D11D05005CC0EB /* int_array_sort.c in Sources */,
-				1588413521D11D49005CC0EB /* yices_debug_version.c in Sources */,
+				1588413521D11D49005CC0EB /* yices_version.c in Sources */,
 				1588412C21D119EB005CC0EB /* cputime.c in Sources */,
 				15883FDB21D114B8005CC0EB /* new_sat_solver.c in Sources */,
 				1588413821D11DA7005CC0EB /* uint_array_sort.c in Sources */,
@@ -8956,7 +8954,7 @@
 				15883EFB21D112C1005CC0EB /* term_explorer.c in Sources */,
 				158840BA21D116C4005CC0EB /* symbol_tables.c in Sources */,
 				158840B721D116BC005CC0EB /* uint_array_sort.c in Sources */,
-				1588410F21D11797005CC0EB /* yices_debug_version.c in Sources */,
+				1588410F21D11797005CC0EB /* yices_version.c in Sources */,
 				15883EF221D112A2005CC0EB /* variable_renaming.c in Sources */,
 				1588404B21D115A9005CC0EB /* int_hash_map.c in Sources */,
 				15883F6421D113CE005CC0EB /* bv64_intervals.c in Sources */,
@@ -9320,7 +9318,7 @@
 				15883F2821D1131B005CC0EB /* bv_slices.c in Sources */,
 				15883E3121D11092005CC0EB /* symmetry_breaking.c in Sources */,
 				15883FE421D114D7005CC0EB /* new_gate_hash_map.c in Sources */,
-				1588411021D11797005CC0EB /* yices_debug_version.c in Sources */,
+				1588411021D11797005CC0EB /* yices_version.c in Sources */,
 				15883E5621D110EB005CC0EB /* model.c in Sources */,
 				15883E4121D110B6005CC0EB /* internalization_table.c in Sources */,
 				1588411621D117A8005CC0EB /* context_config.c in Sources */,
@@ -9569,7 +9567,7 @@
 				1588407321D115FE005CC0EB /* stable_sort.c in Sources */,
 				1588415821D120D2005CC0EB /* no_mcsat.c in Sources */,
 				15883FE321D114D2005CC0EB /* delegate.c in Sources */,
-				1588411121D11798005CC0EB /* yices_debug_version.c in Sources */,
+				1588411121D11798005CC0EB /* yices_version.c in Sources */,
 				15883F0F21D112E6005CC0EB /* renaming_context.c in Sources */,
 				158840FE21D1176F005CC0EB /* projection.c in Sources */,
 				1588408F21D11665005CC0EB /* string_utils.c in Sources */,
