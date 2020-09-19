@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1565824025157CFC0062F02B /* libpoly.0.1.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1565823F25157CFC0062F02B /* libpoly.0.1.8.dylib */; };
+		1565824125157CFC0062F02B /* libpoly.0.1.8.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 1565823F25157CFC0062F02B /* libpoly.0.1.8.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1565824725157D5F0062F02B /* libpoly.0.1.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1565823F25157CFC0062F02B /* libpoly.0.1.8.dylib */; };
 		15883E0721D10E54005CC0EB /* yices_sat.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F73F21CE8C2A00C03CC3 /* yices_sat.c */; };
 		15883E1321D10EA2005CC0EB /* yices_sat_new.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F70221CE8C2A00C03CC3 /* yices_sat_new.c */; };
 		15883E2A21D11081005CC0EB /* context_solver.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F68521CE8C2A00C03CC3 /* context_solver.c */; };
@@ -811,15 +814,24 @@
 		1588415D21D121A0005CC0EB /* yices_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F72E21CE8C2A00C03CC3 /* yices_parser.c */; };
 		1588416021D121D2005CC0EB /* yices_lexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F73121CE8C2A00C03CC3 /* yices_lexer.c */; };
 		1588416121D121D2005CC0EB /* yices_lexer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F73121CE8C2A00C03CC3 /* yices_lexer.c */; };
-		1588416221D130BA005CC0EB /* libpoly.0.1.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C8CCC21CEE3DF00B0AA77 /* libpoly.0.1.7.dylib */; };
 		1588416321D130DA005CC0EB /* yices_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F70421CE8C2A00C03CC3 /* yices_main.c */; };
 		1588416421D139E1005CC0EB /* yices_smt2.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F70521CE8C2A00C03CC3 /* yices_smt2.c */; };
 		1588416521D13A3E005CC0EB /* libgmp.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C8CC921CEE26A00B0AA77 /* libgmp.10.dylib */; };
-		1588416621D13A5F005CC0EB /* libpoly.0.1.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 150C8CCC21CEE3DF00B0AA77 /* libpoly.0.1.7.dylib */; };
 		1588416721D13AFA005CC0EB /* assumptions_and_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 1512F70A21CE8C2A00C03CC3 /* assumptions_and_core.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1565824225157CFC0062F02B /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1565824125157CFC0062F02B /* libpoly.0.1.8.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15883DFE21D10E40005CC0EB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1502,6 +1514,7 @@
 		1512F91621CE8C2A00C03CC3 /* yices_error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yices_error.c; sourceTree = "<group>"; };
 		1512F91721CE8C2A00C03CC3 /* smt_logic_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smt_logic_codes.h; sourceTree = "<group>"; };
 		1512F91821CE8C2A00C03CC3 /* context_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_config.h; sourceTree = "<group>"; };
+		1565823F25157CFC0062F02B /* libpoly.0.1.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpoly.0.1.8.dylib; path = ../../../../../usr/local/lib/libpoly.0.1.8.dylib; sourceTree = "<group>"; };
 		15883E0021D10E40005CC0EB /* yices_sat */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yices_sat; sourceTree = BUILT_PRODUCTS_DIR; };
 		15883E0C21D10E99005CC0EB /* yices_sat_new */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yices_sat_new; sourceTree = BUILT_PRODUCTS_DIR; };
 		15883E1821D10EBB005CC0EB /* yices_main */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = yices_main; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3950,8 +3963,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1588416221D130BA005CC0EB /* libpoly.0.1.7.dylib in Frameworks */,
 				1588413A21D11E67005CC0EB /* libgmp.10.dylib in Frameworks */,
+				1565824025157CFC0062F02B /* libpoly.0.1.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3959,7 +3972,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1588416621D13A5F005CC0EB /* libpoly.0.1.7.dylib in Frameworks */,
+				1565824725157D5F0062F02B /* libpoly.0.1.8.dylib in Frameworks */,
 				1588416521D13A3E005CC0EB /* libgmp.10.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3997,6 +4010,8 @@
 				15883E9521D111A4005CC0EB /* yices_smt1 */,
 			);
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		1512F68321CE8C2A00C03CC3 /* src */ = {
 			isa = PBXGroup;
@@ -4864,6 +4879,7 @@
 		1589C3C421CEE00200201787 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1565823F25157CFC0062F02B /* libpoly.0.1.8.dylib */,
 				150C8CCC21CEE3DF00B0AA77 /* libpoly.0.1.7.dylib */,
 				150C8CC921CEE26A00B0AA77 /* libgmp.10.dylib */,
 				1589C3C521CEE00200201787 /* TEST.txt */,
@@ -8761,6 +8777,7 @@
 				15883E1421D10EBB005CC0EB /* Sources */,
 				15883E1521D10EBB005CC0EB /* Frameworks */,
 				15883E1621D10EBB005CC0EB /* CopyFiles */,
+				1565824225157CFC0062F02B /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -8811,7 +8828,7 @@
 		1512F66D21CE8AB100C03CC3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Bruno Dutertre";
 				TargetAttributes = {
 					1512F67121CE8AB100C03CC3 = {
@@ -8849,6 +8866,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1512F66C21CE8AB100C03CC3;
 			productRefGroup = 1512F66C21CE8AB100C03CC3;
@@ -9738,6 +9756,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -9764,6 +9783,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -9797,6 +9817,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -9818,6 +9839,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = src;
@@ -9845,6 +9867,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -10002,6 +10025,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
